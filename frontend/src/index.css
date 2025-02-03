@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@keyframes loop-scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  
+  .loop-scroll {
+    animation: loop-scroll 60s linear infinite
+  }
