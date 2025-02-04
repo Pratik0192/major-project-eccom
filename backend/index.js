@@ -12,9 +12,17 @@ const port = process.env.PORT || 4000
 connectDB()
 connectCloudinary()
 
+//CORS configuration
+const corsOptions = {
+  origin: 'https://major-project-backend-bay.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}
+
 //middleware
+app.use(cors(corsOptions))
 app.use(express.json())
-app.use(cors())
+
 
 //api endpoints
 app.use('/api/user', userRouter);
