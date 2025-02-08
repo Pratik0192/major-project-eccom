@@ -1,6 +1,7 @@
 import React, { useState , useRef, useEffect} from "react";
 import { motion } from "framer-motion";
 import logo from "../assets/lenskart-logo.png";
+import { Link } from "react-router-dom"
 import { CircleUser, Heart, Menu, Search, ShoppingBag } from "lucide-react";
 
 const Navbar = () => {
@@ -65,10 +66,10 @@ const Navbar = () => {
                 {isOpen && (
                   <ul className="absolute right-0 mt-2 w-40 bg-white shadow-lg border rounded-lg z-50">
                     <li className="px-4 py-2 hover:bg-gray-100">
-                      <a href="/signin">Sign In</a>
+                      <Link to="login">Log in/ Sign up</Link>
                     </li>
                     <li className="px-4 py-2 hover:bg-gray-100 ">
-                      <a href="/signup">Sign Up</a>
+                      <a href="/profile">Profile</a>
                     </li>
                   </ul>
                 )}
@@ -133,11 +134,13 @@ const Navbar = () => {
                     transition={{ duration: 0.2, ease: "easeInOut" }}
                     className="absolute right-0 mt-2 w-40 bg-white shadow-lg border rounded-lg z-50"
                   >
+                    <div className="px-4 py-2 font-bold text-2xl" >Welcome</div>
+
                     <li className="px-4 py-2 hover:bg-gray-100 transition duration-200">
-                      <a href="/signin">Sign In</a>
+                        <Link to="login">Log in/ Sign up</Link>
                     </li>
                     <li className="px-4 py-2 hover:bg-gray-100 transition duration-200">
-                      <a href="/signup">Sign Up</a>
+                      <a href="/profile">Profile</a>
                     </li>
                   </motion.ul>
                 )}
@@ -147,7 +150,7 @@ const Navbar = () => {
                 <Heart className="w-7 h-7"/>
               </li>
               <li className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
-                <ShoppingBag className="w-7 h-7" />
+                <Link to ="cart"> <ShoppingBag className="w-7 h-7" /> </Link>
               </li>
             </ul>
           </div>
