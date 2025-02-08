@@ -60,11 +60,13 @@ const ShopContextProvider = (props) => {
   }, [])
 
   useEffect(() => {
-    if( !token && localStorage.getItem('token') ) {
-      setToken(localStorage.getItem('token'))
-      getUserCart(localStorage.getItem('token'))
+    const savedToken = localStorage.getItem("token");
+    if (savedToken) {
+      setToken(savedToken);
+      getUserCart(savedToken); // Fetch user cart after login
     }
-  }, [])
+  }, []);
+  
 
   const value = {
     products, currency, delivery_fee,

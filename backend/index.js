@@ -14,7 +14,7 @@ connectCloudinary()
 
 //CORS configuration
 const corsOptions = {
-  origin: ['https://major-project-backend-bay.vercel.app', 'https://major-project-frontend-five.vercel.app'],
+  origin: ['https://major-project-backend-bay.vercel.app', 'https://major-project-frontend-five.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }
