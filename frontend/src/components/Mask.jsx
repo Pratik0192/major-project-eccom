@@ -69,9 +69,11 @@ const Mask = () => {
         </div>
       </div>
       <div className="text-center mb-18">
-        <h1 className="text-2xl lg:text-3xl font-semibold text-blue-950 mb-8">
-          TRENDING SUNGLASSES
-        </h1>
+        <div className="flex items-center my-4">
+          <div className="flex-1 h-px bg-blue-800"></div>
+          <span className="mx-2 text-2xl lg:text-3xl font-semibold text-blue-950 ">TRENDING SUNGLASSES</span>
+          <div className="flex-1 h-px bg-blue-800"></div>
+        </div>
         <div className="w-full h-full rounded-lg md:rounded-xl bg-center bg-cover duration-500 cursor-pointer">
           <img
             src={images[currentImage]}
@@ -81,9 +83,11 @@ const Mask = () => {
         </div>
       </div>
       <div className="text-center ">
-        <h1 className="text-2xl lg:text-3xl font-semibold text-blue-950 mb-8">
-          OUR BRANDS
-        </h1>
+        <div className="flex items-center my-4">
+          <div className="flex-1 h-px bg-blue-800"></div>
+          <span className="mx-2 text-2xl lg:text-3xl font-semibold text-blue-950 ">OUR BRANDS</span>
+          <div className="flex-1 h-px bg-blue-800"></div>
+        </div>
         <div className="w-full h-full rounded-lg md:rounded-xl bg-center bg-cover duration-500 cursor-pointer">
           <img src={brand1} alt="" />
           <img src={brand2} alt="" />
