@@ -13,14 +13,14 @@ connectDB()
 connectCloudinary()
 
 //CORS configuration
-const corsOptions = {
-  origin: ['https://major-project-backend-bay.vercel.app', 'https://major-project-frontend-five.vercel.app', 'http://localhost:5173'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
-}
+// const corsOptions = {
+//   origin: ['https://major-project-backend-bay.vercel.app', 'https://major-project-frontend-five.vercel.app', 'http://localhost:5173'],
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   credentials: true,
+// }
 
 //middleware
-app.use(cors(corsOptions))
+app.use(cors({ origin: "*" }))
 app.use(express.json())
 
 
