@@ -42,9 +42,9 @@ const ProductItem = ({ product }) => {
 
           {/* Price & Offered Price */}
           <div className="flex items-center gap-2 mt-2">
-            <span className="text-red-500 font-semibold">₹{product.discounted_price
+            <span className="text-blue-500 font-semibold">₹{product.discounted_price
     }</span>
-            <span className="text-gray-500 line-through">₹{product.price}</span>
+            <span className="text-blue-900 line-through">₹{product.price}</span>
           </div>
 
           {/* Color Options */}
