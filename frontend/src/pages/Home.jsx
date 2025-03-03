@@ -11,10 +11,6 @@ import Mask from '../components/Mask'
 const Home = () => {
   return (
     <div>
-      <div className="sticky top-0 z-40 bg-white shadow-md">
-        <Navbar />
-        <Navbar1 />
-      </div>
       <Navigation />
       <Hero />
       <Discover />

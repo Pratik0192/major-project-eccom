@@ -97,10 +97,13 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <div className="hidden md:flex justify-between items-center px-10 py-4">
           {/* Logo Section */}
-          <div className="flex items-center gap-3">
-            <img src={logo} alt="Lenskart Logo" className="w-12" />
-            <h1 className="text-blue-950 font-bold text-xl">Lenskart</h1>
-          </div>
+          <Link to='/'>
+            <div className="flex items-center gap-3">
+              <img src={logo} alt="Lenskart Logo" className="w-12" />
+              <h1 className="text-blue-950 font-bold text-xl">Lenskart</h1>
+            </div>
+          </Link>
+          
 
           {/* Search Box */}
           <div className="flex items-center flex-grow mx-8">

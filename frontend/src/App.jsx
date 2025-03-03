@@ -6,10 +6,16 @@ import SinglePage from './pages/SinglePage'
 import Cart from './pages/Cart'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
+import Navbar from './components/Navbar'
+import Navbar1 from './components/Navbar1'
 
 const App = () => {
   return (
     <div>
+      <div className="sticky top-0 z-40 bg-white shadow-md">
+        <Navbar />
+        <Navbar1 />
+      </div>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/products' element={ <Products /> } />

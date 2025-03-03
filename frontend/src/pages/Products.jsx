@@ -20,7 +20,8 @@ const Products = () => {
 
       <div className='flex'>
         {/* Sidebar (1/4) */}
-        <SidebarFilters />
+        
+        <SidebarFilters />     
         
         {/* Main Content (3/4) */}
         <div className='w-3/4'>

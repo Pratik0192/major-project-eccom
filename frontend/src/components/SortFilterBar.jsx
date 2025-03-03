@@ -12,28 +12,27 @@ const SortingOptions = ({ onSortChange }) => {
   useEffect(() => {
     const handleScroll = () => {
       const sortingOptions = document.getElementById('sorting-options');
-      if (window.pageYOffset > 0) {
-        sortingOptions.style.position = 'sticky'; // Use style directly
-        sortingOptions.style.top = '0';
-        sortingOptions.style.zIndex = '100';
+      const navbarHeight = document.querySelector('.sticky').offsetHeight;
+  
+      if (window.pageYOffset > navbarHeight) {
+        sortingOptions.style.position = 'sticky';
+        sortingOptions.style.top = `${navbarHeight}px`;
+        sortingOptions.style.zIndex = '50';
         sortingOptions.style.backgroundColor = '#f0f0f0';
         sortingOptions.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
-
       } else {
-        sortingOptions.style.position = 'relative'; // Reset styles
+        sortingOptions.style.position = 'relative';
         sortingOptions.style.top = 'auto';
         sortingOptions.style.zIndex = 'auto';
-        sortingOptions.style.backgroundColor = 'transparent'; // Or your default
+        sortingOptions.style.backgroundColor = 'transparent';
         sortingOptions.style.boxShadow = 'none';
       }
     };
-
+  
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  
 
   return (
     <div
