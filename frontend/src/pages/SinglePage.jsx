@@ -56,6 +56,9 @@ const SinglePage = () => {
     );
   }
 
+  console.log(productData);
+  
+
   return (
     <>
       {/* Product Details Section */}
@@ -123,7 +126,7 @@ const SinglePage = () => {
               
               {/* Product Details */}
               <div className="space-y-3 mb-6">
-                <p className="text-gray-700"><span className="font-medium">Size:</span> {productData.size || "Medium"}</p>
+                <p className="text-gray-700"><span className="font-medium">Size:</span> {productData.sizes[0] || "Medium"}</p>
                 <p className="text-gray-700"><span className="font-medium">Power:</span> {productData.power || "Zero Power"}</p>
                 <p className="text-gray-700"><span className="font-medium">Frame Color:</span> {productData.frameColour}</p>
                 {productData.description && (

@@ -37,7 +37,7 @@ const ProductItem = ({ product }) => {
           <p className="text-sm text-gray-600">
             ⭐ {product.rating} ({product.reviews} reviews)
           </p>
-          <p className="text-gray-600 text-sm">Size: {product.size || "Medium"}</p>
+          <p className="text-gray-600 text-sm">Size: {product.sizes[0] || "Medium"}</p>
           <p className="text-gray-600 text-sm">Power: {product.power || "Zero Power"}</p>
 
           {/* Price & Offered Price */}
