@@ -18,9 +18,8 @@ const Products = () => {
       {/* Sub Navigation Bar */}
       <SubNavBar/>
 
-      <div className='flex'>
+      <div className='flex w-full'>
         {/* Sidebar (1/4) */}
-        
         <SidebarFilters />     
         
         {/* Main Content (3/4) */}

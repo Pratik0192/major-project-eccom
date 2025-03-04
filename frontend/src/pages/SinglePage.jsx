@@ -7,20 +7,22 @@ import ProductItem from "../components/ProductItem";
 import Footer from "../components/Footer";
 import { Heart } from "lucide-react";
 import tryon from '../assets/3d.jpg';
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion components
 
 const SinglePage = () => {
   const { products } = useContext(ShopContext);
   const { productId } = useParams();
   const [productData, setProductData] = useState(null);
-  const [selectedImage, setSelectedImage] = useState("");
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [openSections, setOpenSections] = useState({ technicalInfo: false });
+  const [size, setSize] = useState('')
 
   useEffect(() => {
     const fetchProductData = () => {
       const foundProduct = products.find((item) => item._id === productId);
       if (foundProduct) {
         setProductData(foundProduct);
-        setSelectedImage(foundProduct.image[0]);
         
         // Find related products (same category or similar products)
         const related = products
@@ -38,17 +40,13 @@ const SinglePage = () => {
     fetchProductData();
   }, [productId, products]);
 
-  const handleImageChange = (newImage) => {
-    setSelectedImage(newImage);
-  };
-
   if (!productData) {
     return (
       <>
         <div className="sticky top-0 z-40 bg-white shadow-md">
           <Navbar />
           <Navbar1 />
-      </div>
+        </div>
         <div className="flex justify-center items-center h-64">
           <p className="text-xl">Loading product details...</p>
         </div>
@@ -56,8 +54,9 @@ const SinglePage = () => {
     );
   }
 
-  console.log(productData);
-  
+  const toggleSection = (section) => {
+    setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
+  };  
 
   return (
     <>
@@ -65,28 +64,19 @@ const SinglePage = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Side - Product Images */}
-          <div className="md:w-1/2">
-            <div className="bg-white rounded-lg p-4 shadow-sm">
-              <img
-                src={selectedImage}
-                alt={productData.name}
-                className="w-full h-80 object-contain mb-4"
-              />
-              
-              {/* Thumbnail Gallery */}
-              <div className="flex gap-3 overflow-x-auto justify-center">
+          <div className="md:w-3/4">
+            <div className="bg-white rounded-lg p-4 ">
+              {/* Grid layout with two images per row */}
+              <div className="grid grid-cols-2 gap-4">
                 {productData.image.map((img, index) => (
                   <div 
                     key={index}
-                    className={`w-16 h-16 border rounded cursor-pointer ${
-                      selectedImage === img ? 'border-blue-900 border-2' : 'border-gray-200'
-                    }`}
-                    onClick={() => handleImageChange(img)}
+                    className={`cursor-pointer rounded overflow-hidden hover:scale-110 transition-transform duration-300`} // Added hover effect
                   >
                     <img 
                       src={img} 
                       alt={`${productData.name} view ${index + 1}`} 
-                      className="w-full h-full object-contain" 
+                      className="border border-gray-200 w-full h-90 object-contain" 
                     />
                   </div>
                 ))}
@@ -95,9 +85,9 @@ const SinglePage = () => {
           </div>
           
           {/* Right Side - Product Description */}
-          <div className="md:w-1/2">
+          <div className="md:w-1/4">
             <div className="bg-white rounded-lg p-6 shadow-sm">
-              <div className="flex justify-between items-center  mb-6" >
+              <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold mb-2">{productData.name}</h1>
                 <li className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
                   <Heart className="w-7 h-7"/>
@@ -126,21 +116,29 @@ const SinglePage = () => {
               
               {/* Product Details */}
               <div className="space-y-3 mb-6">
-                <p className="text-gray-700"><span className="font-medium">Size:</span> {productData.sizes[0] || "Medium"}</p>
                 <p className="text-gray-700"><span className="font-medium">Power:</span> {productData.power || "Zero Power"}</p>
                 <p className="text-gray-700"><span className="font-medium">Frame Color:</span> {productData.frameColour}</p>
+                <div className="flex flex-col gap-4">
+                  <p className="font-medium" >Select Size:</p>
+                  <div className="flex gap-2">
+                    {productData.sizes.map((item,index) => (
+                      <button onClick={()=>setSize(item)} className={`ring-1 ring-blue-900 py-2 px-4 bg-gray-100 cursor-pointer ${item === size ? 'border-black' : ''}`} key={index}>{item}</button>
+                    ))}
+                  </div>
+              </div>
+
                 {productData.description && (
                   <p className="text-gray-700">{productData.description}</p>
                 )}
               </div>
 
               <div className="mb-6">
-                <img src={tryon} className="w-16 sm:w-20 mx-auto lg:mx-0 cursor-pointer" alt="Try on" />
+                <img src={tryon} className="w-16 sm:w-20 mx-auto lg:mx-0 cursor-pointer sm:ml " alt="Try on" />
               </div>
               
               {/* Add to Cart & Buy Now Buttons */}
               <div className="flex gap-4 mb-6">
-                <button className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-6 rounded transition cursor-pointer">
+                <button className="bg-cyan-500 hover:bg-blue-300 text-white font-medium py-2 px-6 rounded transition cursor-pointer">
                   Add to Cart
                 </button>
                 <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded transition cursor-pointer">
@@ -159,6 +157,33 @@ const SinglePage = () => {
                   </ul>
                 </div>
               )}
+
+              <div className='pt-5'>
+                <div className='bg-white mb-2 rounded cursor-pointer' onClick={() => toggleSection('technicalInfo')}> 
+                  <div className='flex justify-between items-center p-2'>
+                    <span>Technical Information</span>
+                    {openSections.technicalInfo ? <FaChevronUp /> : <FaChevronDown />}
+                  </div>  
+                </div>
+                <hr className="my-4" />
+                <AnimatePresence>
+                  {openSections.technicalInfo && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="p-4 rounded"
+                    >
+                      <p className="text-gray-700"><span className="font-medium">Category:</span> {productData.category || "Kids"}</p>
+                      <p className="text-gray-700"><span className="font-medium">Frame Colour:</span> {productData.frameColour || "Medium"}</p>
+                      <p className="text-gray-700"><span className="font-medium">Frame Dimensions:</span> {productData.frameDimensions || "Medium"}</p>
+                      <p className="text-gray-700"><span className="font-medium">Frame Width:</span> {productData.frameWidth || "Medium"}</p>
+                      <p className="text-gray-700"><span className="font-medium">Sub Category:</span> {productData.subCategory || "Medium"}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </div>
