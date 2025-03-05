@@ -9,6 +9,7 @@ import { Heart } from "lucide-react";
 import tryon from '../assets/3d.jpg';
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion components
+import Loading from "../components/Loading";
 
 const SinglePage = () => {
   const { products } = useContext(ShopContext);
@@ -48,7 +49,7 @@ const SinglePage = () => {
           <Navbar1 />
         </div>
         <div className="flex justify-center items-center h-64">
-          <p className="text-xl">Loading product details...</p>
+            <Loading />
         </div>
       </>
     );
@@ -71,7 +72,7 @@ const SinglePage = () => {
                 {productData.image.map((img, index) => (
                   <div 
                     key={index}
-                    className={`cursor-pointer rounded overflow-hidden hover:scale-110 transition-transform duration-300`} // Added hover effect
+                    className={`cursor-pointer rounded overflow-hidden hover:scale-105 transition-transform duration-300`} // Added hover effect
                   >
                     <img 
                       src={img} 
@@ -86,7 +87,7 @@ const SinglePage = () => {
           
           {/* Right Side - Product Description */}
           <div className="md:w-1/4">
-            <div className="bg-white rounded-lg p-6 shadow-sm">
+            <div className="bg-white rounded-lg p-6 shadow-lg shadow-blue-700">
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold mb-2">{productData.name}</h1>
                 <li className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
@@ -133,7 +134,7 @@ const SinglePage = () => {
               </div>
 
               <div className="mb-6">
-                <img src={tryon} className="w-16 sm:w-20 mx-auto lg:mx-0 cursor-pointer sm:ml " alt="Try on" />
+                <img src={tryon} className="w-16 sm:w-20 mx-auto lg:mx-0 cursor-pointer sm:ml-0 " alt="Try on" />
               </div>
               
               {/* Add to Cart & Buy Now Buttons */}

@@ -1,23 +1,18 @@
 import React, { useContext, useState} from 'react'
+import Footer from '../components/Footer';
 import ProductItem from '../components/ProductItem'
 import SidebarFilters from '../components/SidebarFilters';
-import SortingOptions from '../components/SortFilterBar';
-import SubNavBar from '../components/SubNavBar';
 import  { ShopContext } from '../context/ShopContext'
 
 
 const Products = () => {
 
-  const [sortOption, setSortOption] = useState('best-sellers');
   const { products } = useContext(ShopContext)
   console.log(products);
   
 
   return (
-    <div className='container mx-auto'> 
-      {/* Sub Navigation Bar */}
-      <SubNavBar/>
-
+    <>    <div className='container mx-auto'> 
       <div className='flex w-full'>
         {/* Sidebar (1/4) */}
         <SidebarFilters />     
@@ -25,11 +20,8 @@ const Products = () => {
         {/* Main Content (3/4) */}
         <div className='w-3/4'>
 
-          {/* Sorting Options */}
-          <SortingOptions onSortChange={setSortOption} />
-          
           {/* Product Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 mt-2">
             {products.map((item, index) => (
               <ProductItem key={index} product={item} />      
             ))}
@@ -37,6 +29,8 @@ const Products = () => {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   )
 }
 
