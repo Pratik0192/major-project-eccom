@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Navbar from './components/Navbar'
 import Navbar1 from './components/Navbar1'
+import Footer from './components/Footer'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/login' element={<Login /> } />
         <Route path='/profile' element={<Profile/> } />
       </Routes>
+      <Footer />
     </div>
   )
 }

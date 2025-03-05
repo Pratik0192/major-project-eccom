@@ -1,142 +1,120 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { ShopContext } from "../context/ShopContext";
+import Slider from "@mui/material/Slider";
 
-const SidebarFilters = () => {
-  const { category } = useParams(); // Get category from URL params
+const SidebarFilters = ({ setFilteredProducts }) => {
+  const { category } = useParams();
   const { products } = useContext(ShopContext);
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedColours, setSelectedColours] = useState([]);
+  const [selectedSizes, setSelectedSizes] = useState([]);
+  const [priceRange, setPriceRange] = useState([0, 10000]);
   const [openSections, setOpenSections] = useState({
     brand: true,
     frameColour: true,
     sizes: true,
+    price: true,
   });
 
   const toggleSection = (section) => {
     setOpenSections({ ...openSections, [section]: !openSections[section] });
   };
 
-  // Filter products based on the selected category
-  const filteredProducts = category
-    ? products.filter((product) => product.category === category)
-    : products;
+  const handleCheckboxChange = (value, list, setList) => {
+    setList(list.includes(value) ? list.filter((item) => item !== value) : [...list, value]);
+  };
 
-  // Extract unique brands and their count
-  const brandCounts = filteredProducts.reduce((acc, product) => {
-    acc[product.brand] = (acc[product.brand] || 0) + 1;
-    return acc;
-  }, {});
+  useEffect(() => {
+    if (!products.length) return;
 
-  const brands = Object.keys(brandCounts).map((brand) => ({
-    name: brand,
-    count: brandCounts[brand],
-  }));
+    const filteredProducts = products.filter((product) => {
+      const matchesCategory = category ? product.category === category : true;
+      const matchesBrand = selectedBrands.length ? selectedBrands.includes(product.brand) : true;
+      const matchesColour = selectedColours.length ? selectedColours.includes(product.frameColour) : true;
+      const matchesSize = selectedSizes.length ? product.sizes.some((size) => selectedSizes.includes(size)) : true;
+      const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
 
-  // Extract unique frame colours and their count
-  const colourCounts = filteredProducts.reduce((acc, product) => {
-    acc[product.frameColour] = (acc[product.frameColour] || 0) + 1;
-    return acc;
-  }, {});
+      return matchesCategory && matchesBrand && matchesColour && matchesSize && matchesPrice;
+    });
 
-  const frameColours = Object.keys(colourCounts).map((colour) => ({
-    name: colour,
-    count: colourCounts[colour],
-  }));
-
-  // Extract unique frame sizes and their count
-  const sizeCounts = filteredProducts.reduce((acc, product) => {
-    if (Array.isArray(product.sizes)) { // Ensure sizes is an array
-      product.sizes.forEach((size) => {
-        acc[size] = (acc[size] || 0) + 1;
-      });
-    }
-    return acc;
-  }, {});
-
-  const frameSizes = Object.keys(sizeCounts).map((size) => ({
-    name: size,
-    count: sizeCounts[size],
-  }));
+    setFilteredProducts(filteredProducts);
+  }, [selectedBrands, selectedColours, selectedSizes, priceRange, category, products, setFilteredProducts]);
 
   return (
     <div className="w-64 p-4 border-r border-gray-200">
-      {/* Brands Filter */}
+      {/* Price Filter */}
       <div className="mb-4">
-        <div
-          className="flex justify-between items-center cursor-pointer"
-          onClick={() => toggleSection("brand")}
-        >
+        <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("price")}>
+          <h3 className="font-semibold text-lg">PRICE</h3>
+          {openSections.price ? <FaChevronUp /> : <FaChevronDown />}
+        </div>
+        {openSections.price && (
+          <div className="mt-2">
+            <Slider
+              range
+              min={0}
+              max={10000}
+              step={100}
+              value={priceRange}
+              onChange={(_, newValue) => setPriceRange(newValue)}
+            />
+            <div className="flex justify-between text-sm mt-2">
+              <span>₹{priceRange[0]}</span>
+              <span>₹{priceRange[1]}</span>
+            </div>
+          </div>
+        )}
+      </div>
+      
+      <div className="mb-4">
+        <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("brand")}>
           <h3 className="font-semibold text-lg">BRANDS</h3>
           {openSections.brand ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {openSections.brand && (
           <div className="mt-2 space-y-2">
-            {brands.length > 0 ? (
-              brands.map((brand, index) => (
-                <label key={index} className="flex items-center space-x-2 text-gray-700">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span>
-                    {brand.name} <span className="text-gray-500">({brand.count})</span>
-                  </span>
-                </label>
-              ))
-            ) : (
-              <p className="text-gray-500">No brands available</p>
-            )}
+            {[...new Set(products.map((p) => p.brand))].map((brand, index) => (
+              <label key={index} className="flex items-center space-x-2 text-gray-700">
+                <input type="checkbox" className="w-4 h-4" checked={selectedBrands.includes(brand)} onChange={() => handleCheckboxChange(brand, selectedBrands, setSelectedBrands)} />
+                <span>{brand}</span>
+              </label>
+            ))}
           </div>
         )}
       </div>
-
-      {/* Frame Colours Filter */}
+      
       <div className="mb-4">
-        <div
-          className="flex justify-between items-center cursor-pointer"
-          onClick={() => toggleSection("frameColour")}
-        >
+        <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("frameColour")}>
           <h3 className="font-semibold text-lg">FRAME COLOURS</h3>
           {openSections.frameColour ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {openSections.frameColour && (
           <div className="mt-2 space-y-2">
-            {frameColours.length > 0 ? (
-              frameColours.map((colour, index) => (
-                <label key={index} className="flex items-center space-x-2 text-gray-700">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span>
-                    {colour.name} <span className="text-gray-500">({colour.count})</span>
-                  </span>
-                </label>
-              ))
-            ) : (
-              <p className="text-gray-500">No frame colours available</p>
-            )}
+            {[...new Set(products.map((p) => p.frameColour))].map((colour, index) => (
+              <label key={index} className="flex items-center space-x-2 text-gray-700">
+                <input type="checkbox" className="w-4 h-4" checked={selectedColours.includes(colour)} onChange={() => handleCheckboxChange(colour, selectedColours, setSelectedColours)} />
+                <span>{colour}</span>
+              </label>
+            ))}
           </div>
         )}
       </div>
-
-      {/* Frame Size Filter */}
+      
       <div className="mb-4">
-        <div
-          className="flex justify-between items-center cursor-pointer"
-          onClick={() => toggleSection("sizes")}
-        >
+        <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("sizes")}>
           <h3 className="font-semibold text-lg">FRAME SIZES</h3>
           {openSections.sizes ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {openSections.sizes && (
           <div className="mt-2 space-y-2">
-            {frameSizes.length > 0 ? (
-              frameSizes.map((size, index) => (
-                <label key={index} className="flex items-center space-x-2 text-gray-700">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span>
-                    {size.name} <span className="text-gray-500">({size.count})</span>
-                  </span>
-                </label>
-              ))
-            ) : (
-              <p className="text-gray-500">No frame sizes available</p>
-            )}
+            {[...new Set(products.flatMap((p) => p.sizes))].map((size, index) => (
+              <label key={index} className="flex items-center space-x-2 text-gray-700">
+                <input type="checkbox" className="w-4 h-4" checked={selectedSizes.includes(size)} onChange={() => handleCheckboxChange(size, selectedSizes, setSelectedSizes)} />
+                <span>{size}</span>
+              </label>
+            ))}
           </div>
         )}
       </div>

@@ -8,28 +8,28 @@ import  { ShopContext } from '../context/ShopContext'
 const Products = () => {
 
   const { products } = useContext(ShopContext)
+  const [filteredProducts, setFilteredProducts] = useState(products);
   console.log(products);
   
-
   return (
-    <>    <div className='container mx-auto'> 
-      <div className='flex w-full'>
-        {/* Sidebar (1/4) */}
-        <SidebarFilters />     
-        
-        {/* Main Content (3/4) */}
-        <div className='w-3/4'>
-
-          {/* Product Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 mt-2">
-            {products.map((item, index) => (
-              <ProductItem key={index} product={item} />      
-            ))}
+    <>
+      <div className='mx-auto w-[95%]'> 
+        <div className='flex w-full'>
+          {/* Sidebar (1/4) */}
+          <div className='hidden md:block'>
+            <SidebarFilters setFilteredProducts={setFilteredProducts} /> 
+          </div>
+          {/* Main Content (3/4) */}
+          <div className='w-full md:w-3/4'>
+            {/* Product Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 mt-2">
+              {filteredProducts.map((item, index) => (
+                <ProductItem key={index} product={item} />      
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <Footer />
     </>
   )
 }
