@@ -46,8 +46,7 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <Navbar />
+    <div className=''>
       <div className="flex justify-center items-center min-h-screen bg-gray-100 px-6 py-2">
         <div className="bg-white p-6 sm:p-8 rounded-lg shadow-md w-full max-w-md -mt-20 border border-gray-100">
           {/* Header */}
@@ -140,7 +139,6 @@ const Login = () => {
           </button>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

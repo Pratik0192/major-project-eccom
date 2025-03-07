@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion
 import Loading from "../components/Loading";
 
 const SinglePage = () => {
-  const { products } = useContext(ShopContext);
+  const { products, addToCart } = useContext(ShopContext);
   const { productId } = useParams();
   const [productData, setProductData] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
@@ -49,7 +49,7 @@ const SinglePage = () => {
           <Navbar1 />
         </div>
         <div className="flex justify-center items-center h-64">
-            <Loading />
+          <Loading />
         </div>
       </>
     );
@@ -123,7 +123,15 @@ const SinglePage = () => {
                   <p className="font-medium" >Select Size:</p>
                   <div className="flex gap-2">
                     {productData.sizes.map((item,index) => (
-                      <button onClick={()=>setSize(item)} className={`ring-1 ring-blue-900 py-2 px-4 bg-gray-100 cursor-pointer ${item === size ? 'border-black' : ''}`} key={index}>{item}</button>
+                      <button 
+                        onClick={() => setSize(item)} 
+                        className={`ring-1 ring-blue-900 py-2 px-4 cursor-pointer transition ${
+                          item === size ? 'bg-blue-500 text-white' : 'bg-gray-100'
+                        }`} 
+                        key={index}
+                      >
+                        {item}
+                    </button>
                     ))}
                   </div>
               </div>
@@ -139,7 +147,7 @@ const SinglePage = () => {
               
               {/* Add to Cart & Buy Now Buttons */}
               <div className="flex gap-4 mb-6">
-                <button className="bg-cyan-500 hover:bg-blue-300 text-white font-medium py-2 px-6 rounded transition cursor-pointer">
+                <button onClick={() => addToCart(productData._id, size)} className="bg-cyan-500 hover:bg-blue-300 text-white font-medium py-2 px-6 rounded transition cursor-pointer">
                   Add to Cart
                 </button>
                 <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded transition cursor-pointer">
@@ -204,7 +212,6 @@ const SinglePage = () => {
           )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

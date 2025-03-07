@@ -17,12 +17,15 @@ const ShopContextProvider = (props) => {
   const navigate = useNavigate();
 
   const addToCart = async(itemId, size) => {
+    console.log("Add to Cart Clicked", { itemId, size }); // Debugging
     if(!size) {
-      toast.error("select a size first");
+      toast.error("Select a size first");
       return;
     }
 
     let cartData = structuredClone(cartItems);
+    console.log("Before Update", cartData); // Debugging
+
     if(cartData[itemId]) {
       if(cartData[itemId][size]) {
         cartData[itemId][size] += 1;
@@ -33,17 +36,21 @@ const ShopContextProvider = (props) => {
       cartData[itemId] = {};
       cartData[itemId][size] = 1;
     }
-    setCartItems(cartData);
+
+    console.log("After Update", cartData); // Debugging
+    setCartItems({...cartData}); // Ensure React detects changes
 
     if(token) {
       try {
-        await axios.post(backendUrl + '/api/cart/add', {itemId, size}, {headers: {token}})
+        await axios.post(backendUrl + '/api/cart/add', {itemId, size}, {headers: {token}});
+        console.log("Cart updated on backend"); // Debugging
       } catch (error) {
-        console.log(error);
+        console.log("Backend Error", error.response?.data || error.message);
         toast.error(error.message);
       }
     }
-  }
+};
+
 
   const getCartCount = () => {
     let totalCount = 0;
@@ -129,6 +136,8 @@ const ShopContextProvider = (props) => {
       getUserCart(savedToken); // Fetch user cart after login
     }
   }, []);
+  
+  console.log(token);
   
 
   const value = {
