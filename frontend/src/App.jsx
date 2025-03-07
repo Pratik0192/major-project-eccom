@@ -9,6 +9,7 @@ import Profile from './pages/Profile'
 import Navbar from './components/Navbar'
 import Navbar1 from './components/Navbar1'
 import Footer from './components/Footer'
+import Checkout from './pages/Checkout'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/cart' element={<Cart />} />
         <Route path='/login' element={<Login /> } />
         <Route path='/profile' element={<Profile/> } />
+        <Route path='/checkout' element={<Checkout />} />
       </Routes>
       <Footer />
     </div>
