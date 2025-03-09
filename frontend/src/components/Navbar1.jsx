@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import tryon from '../assets/3d.jpg';
+import { Link } from 'react-router-dom';
 
 const NavItem = ({ text, subItems }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,11 +12,11 @@ const NavItem = ({ text, subItems }) => {
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <span className="relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 
+      <Link to="/products" className="relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 
       after:bg-blue-950 after:origin-left after:transition-transform after:duration-300 
       after:scale-x-0 hover:after:scale-x-100">
         {text}
-      </span>
+      </Link>
 
       {/* Dropdown Menu */}
       {isOpen && subItems && (
@@ -28,7 +29,7 @@ const NavItem = ({ text, subItems }) => {
         >
           {subItems.map((item, index) => (
             <li key={index} className="px-4 py-2 hover:bg-gray-100 transition">
-              {item}
+              <Link to="/products"> {item} </Link>
             </li>
           ))}
         </motion.ul>

@@ -10,6 +10,7 @@ import Navbar from './components/Navbar'
 import Navbar1 from './components/Navbar1'
 import Footer from './components/Footer'
 import Checkout from './pages/Checkout'
+import Wishlist from './pages/Wishlist'
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path='/login' element={<Login /> } />
         <Route path='/profile' element={<Profile/> } />
         <Route path='/checkout' element={<Checkout />} />
+        <Route path='/wishlist' element={<Wishlist />} />
       </Routes>
       <Footer />
     </div>

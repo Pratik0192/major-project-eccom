@@ -1,8 +1,15 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
+import Shipping from '../components/Shipping';
 
-const Checkout = () => {
+const Checkout = (props) => {
+  const param = useParams();
+
   return (
-    <div>Checkout</div>
+    <div>
+      <Shipping />
+      <div></div>
+    </div>
   )
 }
 

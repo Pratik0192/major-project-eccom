@@ -53,7 +53,6 @@ const SidebarFilters = ({ setFilteredProducts }) => {
         {openSections.price && (
           <div className="mt-2">
             <Slider
-              range
               min={0}
               max={10000}
               step={100}

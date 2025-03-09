@@ -13,7 +13,7 @@ const ProductItem = ({ product }) => {
   return (
     <Link to={`/product/${product._id}`}>
       <div
-        className={`relative bg-white border border-gray-200 rounded-lg p-4 shadow-sm shadow-gray-600 transition duration-300 ${
+        className={`relative bg-white border border-gray-200 rounded-lg p-4 shadow-sm transition duration-300 ${
           isHovered ? "scale-101 shadow-md" : "scale-100"
         }`}
         onMouseEnter={() => {
@@ -43,40 +43,35 @@ const ProductItem = ({ product }) => {
         </button>
 
         {/* Product Image */}
-        <div className="h-56 overflow-hidden" >
-        <img
-          src={currentImage}
-          alt={product.name}
-          className="w-full h-56 object-contain transition-opacity duration-300"
-        />
+        <div className="h-56 overflow-hidden flex items-center justify-center">
+          <img
+            src={currentImage}
+            alt={product.name}
+            className="w-full h-full object-contain transition-opacity duration-300"
+          />
         </div>
 
         <hr className="my-4 mt-0" />
 
         {/* Product Details */}
-        <h3 className="mt-2 font-semibold sm:text-base ">{product.name}</h3>
-        <p className="text-sm text-gray-600">
+        <h3 className="mt-2 font-semibold text-base">{product.name}</h3>
+        <p className="mt-2 text-sm text-gray-600">
           ⭐ {product.rating} ({product.reviews} reviews)
         </p>
-        <div className="flex" >
-        <p className="text-gray-600 text-sm">Size: {product.sizes[0] || "Medium"}</p>
-        <span className="mx-2">•</span> 
-        <p className="text-gray-600 text-sm">Power: {product.power || "Zero Power"}</p>
-        </div>
+        <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-700">Colors:</span>
+            <div className="text-sm flex gap-1">{product.frameColour}</div>
+          </div>
 
         {/* Price & Offered Price */}
-        <div className="flex justify-between " >
-        <div className="flex items-center gap-2 mt-2">
-          <span className="text-blue-500 font-semibold">₹{product.discounted_price}</span>
-          <span className="text-blue-900 line-through">₹{product.price}</span>
-        </div>
+        <div className="flex justify-between mt-2">
+          <div className="flex items-center gap-2">
+            <span className="text-blue-500 font-semibold">₹{product.discounted_price}</span>
+            <span className="text-blue-900 line-through">₹{product.price}</span>
+          </div>
 
-        
-        {/* Color Options */}
-        <div className="flex items-center gap-2 mt-2">
-          <span className="text-sm text-gray-700">Colors:</span>
-          <div className="flex gap-1">{product.frameColour}</div>
-        </div>
+          {/* Color Options */}
+          
         </div>
       </div>
     </Link>

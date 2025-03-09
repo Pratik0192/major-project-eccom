@@ -171,7 +171,9 @@ const Navbar = () => {
               </li>
 
               <li className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
-                <Heart className="w-7 h-7"/>
+                <Link to="wishlist" >
+                  <Heart className="w-7 h-7"/>
+                </Link>
               </li>
               <li className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
                 <Link to="/cart" className="relative">

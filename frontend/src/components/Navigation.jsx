@@ -5,6 +5,7 @@ import power from "../assets/powersunglass.jpg";
 import progressive from "../assets/progressive.jpg";
 import screen from "../assets/screen.jpg";
 import sunglass from "../assets/sunglass.jpg";
+import { Link } from "react-router-dom";
 
 const ProductDropdown = ({ title, image, products }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -95,7 +96,9 @@ const Navigation = () => {
   return (
     <div className="flex flex-row flex-wrap gap-2 justify-center items-center p-6 bg-gray-100">
       {categories.map((category, index) => (
-        <ProductDropdown key={index} {...category} />
+        <Link to="/products" className="relative"  key={index} >
+          <ProductDropdown {...category} />
+        </Link>
       ))}
     </div>
   );
