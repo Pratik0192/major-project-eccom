@@ -1,4 +1,5 @@
 import Stripe from "stripe"
+import razorpay from "razorpay"
 import OrderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 
@@ -6,6 +7,11 @@ const currency = 'inr'
 const deliveryCharge = 50
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+
+const razorpayInstance = new razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
+})
 
 //cod
 export const placeOrder = async(req, res) => {
@@ -103,5 +109,74 @@ export const verifyStripe = async(req, res) => {
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message}) 
+  }
+}
+
+export const placeOrderRazorpay = async(req, res) => {
+  try {
+    const { userId, items, amount, address } = req.body
+
+    const orderData = {
+      userId,
+      items, 
+      address,
+      amount,
+      paymentMethod: "RAZORPAY",
+      payment: false,
+      date: Date.now()
+    }
+
+    const newOrder = new OrderModel(orderData)
+    await newOrder.save()
+
+    const options = {
+      amount: amount * 100,
+      currency: currency.toUpperCase(),
+      receipt: newOrder._id.toString()
+    }
+
+    await razorpayInstance.orders.create(options, (error, order) => {
+      if(error) {
+        console.log(error);
+        return res.json({success: false, message: error})
+      }
+      res.json({ success: true, order })
+    })
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message}) 
+  }
+}
+
+export const verifyRazorpay = async(req, res) => {
+  try {
+    const { userId, razorpay_order_id } = req.body
+
+    const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id)
+    console.log(orderInfo);
+    if(orderInfo.status === 'paid') {
+      await OrderModel.findByIdAndUpdate(orderInfo.receipt, {payment: true});
+      await userModel.findByIdAndUpdate(userId, {cartData: {}})
+      res.json({ success: true, message: "Payment Successfull" })
+    } else {
+      res.json({ success: false,  message: "payment failed"})
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message})
+  }
+}
+
+export const userOrders = async (req, res) => {
+  try {
+    
+    const { userId } = req.body
+
+    const orders = await OrderModel.find({ userId })
+    res.json({success: true, orders})
+
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message})
   }
 }

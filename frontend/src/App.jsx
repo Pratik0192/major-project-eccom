@@ -12,6 +12,8 @@ import Footer from './components/Footer'
 import Checkout from './pages/Checkout'
 import Wishlist from './pages/Wishlist'
 import { Toaster } from "react-hot-toast"
+import Order from './pages/Order'
+import Verify from './pages/Verify'
 
 const App = () => {
   return (
@@ -30,6 +32,8 @@ const App = () => {
         <Route path='/profile' element={<Profile/> } />
         <Route path='/checkout' element={<Checkout />} />
         <Route path='/wishlist' element={<Wishlist />} />
+        <Route path='/orders' element={ <Order /> } />
+        <Route path='/verify' element={ <Verify /> } />
       </Routes>
       <Footer />
     </div>

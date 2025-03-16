@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import stripelogo from "../assets/stripe_logo.png";
+import razorpaylogo from "../assets/razorpay_logo.png"
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import toast from "react-hot-toast"
@@ -26,10 +27,36 @@ const Shipping = () => {
     setFormData((data) => ({ ...data, [name]: value }));
   };
 
+  const initPay = (order) => {
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: 'Order Payment',
+      description: 'Order Payment',
+      order_id: order.id,
+      receipt: order.receipt,
+      handler: async (response) => {
+        console.log(response);
+        try {
+          const { data } = await axios.post(backendUrl + '/api/order/verifyrazorpay', response, {headers: {token}})
+          if(data.success) {
+            navigate('/orders')
+            setCartItems({})
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+    const rzp = new window.Razorpay(options)
+    rzp.open()
+  }
+
   const onSubmitHandler = async(e) => {
     e.preventDefault();
-
     try {
+
       let orderItems = []
 
       for(const items in cartItems) {
@@ -58,7 +85,7 @@ const Shipping = () => {
             toast.success("Order Placed")
             setCartItems({})
             setTimeout(() => {
-              navigate('/')
+              navigate('/orders')
             }, 3000);
           } else {
             toast.error(response.data.message)
@@ -74,6 +101,15 @@ const Shipping = () => {
             toast.error(responseStripe.data.message)
           }
           break
+
+        case 'razorpay':
+          const responseRazorpay = await axios.post(backendUrl + '/api/order/razorpay', orderData, { headers: {token}})
+          if(responseRazorpay.data.success) {
+            console.log(responseRazorpay.data.order);
+            initPay(responseRazorpay.data.order)
+          }
+          break;
+
         default:
           break;
       }
@@ -207,7 +243,19 @@ const Shipping = () => {
                   onChange={() => setPaymentMethod("stripe")}
                   className="w-4 h-4"
                 />
-                <img className='h-5 mx-4' src={stripelogo} alt="" />
+                <img className='h-5' src={stripelogo} alt="" />
+              </label>
+
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name="paymentMethod"
+                  value="razorpay"
+                  checked={paymentMethod === "razorpay"}
+                  onChange={() => setPaymentMethod("razorpay")}
+                  className="w-4 h-4"
+                />
+                <img className='h-5' src={razorpaylogo} alt="" />
               </label>
 
               <label className="flex items-center gap-2 cursor-pointer">
@@ -219,7 +267,7 @@ const Shipping = () => {
                   onChange={() => setPaymentMethod("cod")}
                   className="w-4 h-4"
                 />
-                <span>Cash on Delivery</span>
+                <span className="">Cash on Delivery</span>
               </label>
             </div>
           </div>
