@@ -11,10 +11,12 @@ import Navbar1 from './components/Navbar1'
 import Footer from './components/Footer'
 import Checkout from './pages/Checkout'
 import Wishlist from './pages/Wishlist'
+import { Toaster } from "react-hot-toast"
 
 const App = () => {
   return (
     <div>
+      <Toaster />
       <div className="sticky top-0 z-40 bg-white shadow-md">
         <Navbar />
         <Navbar1 />

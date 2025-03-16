@@ -145,7 +145,7 @@ const ShopContextProvider = (props) => {
     }
   }, []);
   
-  console.log(token);
+  console.log("token from context ", token);
   
 
   const value = {

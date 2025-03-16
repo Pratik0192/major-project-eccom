@@ -1,9 +1,13 @@
 import React, { useContext, useState } from "react";
 import stripelogo from "../assets/stripe_logo.png";
 import { ShopContext } from "../context/ShopContext";
+import axios from "axios";
+import toast from "react-hot-toast"
 
 const Shipping = () => {
-  const { getCartAmount } = useContext(ShopContext);
+
+  const [paymentMethod, setPaymentMethod] = useState("cod");
+  const { navigate, backendUrl, token, getCartAmount, cartItems, setCartItems, products, delivery_fee,} = useContext(ShopContext);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -17,20 +21,69 @@ const Shipping = () => {
     phone: "",
   });
 
-  const [paymentMethod, setPaymentMethod] = useState("stripe"); // Default to Stripe
-
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
     setFormData((data) => ({ ...data, [name]: value }));
   };
 
+  const onSubmitHandler = async(e) => {
+    e.preventDefault();
+
+    try {
+      let orderItems = []
+
+      for(const items in cartItems) {
+        for(const item in cartItems[items]) {
+          if(cartItems[items][item] > 0) {
+            const itemInfo = structuredClone(products.find(product => product._id === items))
+            if(itemInfo) {
+              itemInfo.size = item
+              itemInfo.quantity = cartItems[items][item]
+              orderItems.push(itemInfo)
+            }
+          }
+        }
+      }
+      let orderData = {
+        address: formData,
+        items: orderItems,
+        amount: getCartAmount() + delivery_fee
+      }
+
+      switch(paymentMethod) {
+        case 'cod':
+          const response = await axios.post(backendUrl + '/api/order/place', orderData, {headers: {token}})
+          console.log(response.data);
+          if(response.data.success) {
+            toast.success("Order Placed")
+            setCartItems({})
+            setTimeout(() => {
+              navigate('/')
+            }, 3000);
+          } else {
+            toast.error(response.data.message)
+          }
+          break;
+        
+        case 'stripe':
+          
+        default:
+          break;
+      }
+      
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message)
+    }
+  }
+
   return (
-    <div className="bg-gray-100 min-h-screen p-4">
+    <form className="bg-gray-100 min-h-screen p-4" onSubmit={onSubmitHandler}>
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-6">
         {/* Left Side: Shipping Form */}
         <div className="w-full lg:w-2/3 bg-white shadow-md p-6 rounded-md">
           <h2 className="text-2xl font-semibold mb-4">Shipping Details</h2>
-          <form className="space-y-4">
+          <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
                 type="text"
@@ -107,7 +160,7 @@ const Shipping = () => {
               placeholder="Phone Number"
               className="border p-2 w-full rounded-md"
             />
-          </form>
+          </div>
         </div>
 
         {/* Right Side: Bill Details */}
@@ -168,11 +221,11 @@ const Shipping = () => {
             type="submit"
             className="w-full bg-green-500 text-white font-semibold p-3 rounded-md mt-4 hover:bg-green-600"
           >
-            Continue to Payment
+            Place Order
           </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
