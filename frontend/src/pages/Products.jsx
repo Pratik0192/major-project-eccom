@@ -22,7 +22,7 @@ const Products = () => {
           {/* Main Content (3/4) */}
           <div className='w-full md:w-3/4'>
             {/* Product Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 mt-2">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-6 lg:p-4 mt-2">
               {filteredProducts.map((item, index) => (
                 <ProductItem key={index} product={item} />      
               ))}

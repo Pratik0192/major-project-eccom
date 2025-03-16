@@ -1,3 +1,4 @@
+import { Star } from "lucide-react";
 import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -36,14 +37,14 @@ const ProductItem = ({ product }) => {
           className="absolute top-3 right-3 text-2xl transition-transform transform hover:scale-110"
         >
           {isWishlisted ? (
-            <FaHeart className="text-red-500" />
+            <FaHeart className="text-red-500"  />
           ) : (
             <FaRegHeart className="text-gray-600 hover:text-blue-500" />
           )}
         </button>
 
         {/* Product Image */}
-        <div className="h-56 overflow-hidden flex items-center justify-center">
+        <div className="h-40 lg:h-56 overflow-hidden flex items-center justify-center">
           <img
             src={currentImage}
             alt={product.name}
@@ -54,14 +55,19 @@ const ProductItem = ({ product }) => {
         <hr className="my-4 mt-0" />
 
         {/* Product Details */}
-        <h3 className="mt-2 font-semibold text-base">{product.name}</h3>
-        <p className="mt-2 text-sm text-gray-600">
-          ⭐ {product.rating} ({product.reviews} reviews)
+        <h3 className="mt-2 text-sm lg:text-lg font-medium truncate w-full overflow-hidden whitespace-nowrap">
+          {product.name}
+        </h3>
+
+        <p className="mt-2 text-sm text-gray-600 flex gap-1">
+          <Star className="w-4" /> {product.rating} ({product.reviews} reviews)
         </p>
         <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-700">Colors:</span>
-            <div className="text-sm flex gap-1">{product.frameColour}</div>
-          </div>
+          <span className="text-xs lg:text-sm text-gray-700">Colors:</span>
+          <p className="text-xs lg:text-sm flex gap-1 truncate w-full overflow-hidden whitespace-nowrap">
+            {product.frameColour}
+          </p>
+        </div>
 
         {/* Price & Offered Price */}
         <div className="flex justify-between mt-2">
