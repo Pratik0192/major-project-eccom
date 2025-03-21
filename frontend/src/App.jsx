@@ -11,7 +11,7 @@ import Navbar1 from './components/Navbar1'
 import Footer from './components/Footer'
 import Checkout from './pages/Checkout'
 import Wishlist from './pages/Wishlist'
-import { Toaster } from "react-hot-toast"
+import { Toaster } from "react-hot-toast" //he ye kam karega 
 import Order from './pages/Order'
 import Verify from './pages/Verify'
 

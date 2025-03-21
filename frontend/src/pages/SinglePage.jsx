@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Navbar1 from "../components/Navbar1";
 import { ShopContext } from "../context/ShopContext";
@@ -90,9 +90,9 @@ const SinglePage = () => {
             <div className="bg-white rounded-lg p-6 shadow-lg shadow-blue-700">
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold mb-2">{productData.name}</h1>
-                <li className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
+                <Link to='/wishlist' className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
                   <Heart className="w-7 h-7"/>
-                </li>
+                </Link>
               </div>
 
               <div className="flex items-center gap-2 mb-4">

@@ -7,6 +7,7 @@ import userRouter from "./routes/userRoutes.js"
 import productRouter from "./routes/productRoutes.js"
 import cartRouter from "./routes/cartRoute.js"
 import orderRouter from "./routes/orderRoute.js"
+import wishlistRouter from "./routes/wishlistRoute.js"
 
 //app config
 const app = express()
@@ -23,7 +24,8 @@ app.use(express.json())
 app.use('/api/user', userRouter);
 app.use('/api/product', productRouter);
 app.use('/api/cart', cartRouter);
-app.use('/api/order', orderRouter)
+app.use('/api/order', orderRouter);
+app.use('/api/wishlist', wishlistRouter)
 
 app.get('/', (req, res) => {
   res.send("API working")
