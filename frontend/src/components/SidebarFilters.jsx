@@ -47,11 +47,11 @@ const SidebarFilters = ({ setFilteredProducts }) => {
       {/* Price Filter */}
       <div className="mb-4">
         <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("price")}>
-          <h3 className="font-semibold text-lg">PRICE</h3>
+          <h3 className="font-semibold text-gray-700 text-lg">PRICE</h3>
           {openSections.price ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {openSections.price && (
-          <div className="mt-2">
+          <div className="mt-2 text-gray-700">
             <Slider
               min={0}
               max={10000}
@@ -69,7 +69,7 @@ const SidebarFilters = ({ setFilteredProducts }) => {
       
       <div className="mb-4">
         <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("brand")}>
-          <h3 className="font-semibold text-lg">BRANDS</h3>
+          <h3 className="font-semibold text-gray-700 text-lg">BRANDS</h3>
           {openSections.brand ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {openSections.brand && (
@@ -86,7 +86,7 @@ const SidebarFilters = ({ setFilteredProducts }) => {
       
       <div className="mb-4">
         <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("frameColour")}>
-          <h3 className="font-semibold text-lg">FRAME COLOURS</h3>
+          <h3 className="font-semibold text-gray-700 text-lg">FRAME COLOURS</h3>
           {openSections.frameColour ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {openSections.frameColour && (

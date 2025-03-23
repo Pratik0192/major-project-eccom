@@ -40,7 +40,7 @@ const Cart = () => {
   console.log(cartData);
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 min-h-screen text-gray-700">
 
       {/* Main Cart Section */}
       <div className="max-w-6xl mx-auto p-4 lg:flex lg:gap-6">

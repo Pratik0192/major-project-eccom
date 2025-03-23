@@ -121,7 +121,7 @@ const Shipping = () => {
   }
 
   return (
-    <form className="bg-gray-100 min-h-screen p-4" onSubmit={onSubmitHandler}>
+    <form className="bg-gray-100 min-h-screen p-4 text-gray-700" onSubmit={onSubmitHandler}>
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-6">
         {/* Left Side: Shipping Form */}
         <div className="w-full lg:w-2/3 bg-white shadow-md p-6 rounded-md">

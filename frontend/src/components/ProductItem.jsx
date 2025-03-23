@@ -34,7 +34,7 @@ const ProductItem = ({ product }) => {
             e.preventDefault(); // Prevents Link navigation on button click
             setIsWishlisted(!isWishlisted);
           }}
-          className="absolute top-3 right-3 text-2xl transition-transform transform hover:scale-110"
+          className="absolute top-3 right-3 text-2xl transition-transform transform hover:scale-110 cursor-pointer"
         >
           {isWishlisted ? (
             <FaHeart className="text-red-500"  />
@@ -55,7 +55,7 @@ const ProductItem = ({ product }) => {
         <hr className="my-4 mt-0" />
 
         {/* Product Details */}
-        <h3 className="mt-2 text-sm lg:text-lg font-medium truncate w-full overflow-hidden whitespace-nowrap">
+        <h3 className="mt-2 text-gray-700 text-sm lg:text-lg font-medium truncate w-full overflow-hidden whitespace-nowrap">
           {product.name}
         </h3>
 

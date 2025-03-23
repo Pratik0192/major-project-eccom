@@ -13,7 +13,7 @@ const Products = () => {
   
   return (
     <>
-      <div className='mx-auto w-[95%]'> 
+      <div className='px-10 bg-white'> 
         <div className='flex w-full'>
           {/* Sidebar (1/4) */}
           <div className='hidden md:block'>

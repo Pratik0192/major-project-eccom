@@ -62,7 +62,7 @@ const SinglePage = () => {
   return (
     <>
       {/* Product Details Section */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 bg-white">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Side - Product Images */}
           <div className="md:w-3/4">
@@ -89,14 +89,14 @@ const SinglePage = () => {
           <div className="md:w-1/4">
             <div className="bg-white rounded-lg p-6 shadow-lg shadow-blue-700">
               <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold mb-2">{productData.name}</h1>
+                <h1 className="text-2xl text-blue-700 font-bold mb-2">{productData.name}</h1>
                 <Link to='/wishlist' className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
                   <Heart className="w-7 h-7"/>
                 </Link>
               </div>
 
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-sm bg-yellow-100 px-2 py-1 rounded">
+                <span className="text-sm text-yellow-600 bg-yellow-100 px-2 py-1 rounded">
                   ⭐ {productData.rating} ({productData.reviews} reviews)
                 </span>
               </div>
@@ -120,12 +120,12 @@ const SinglePage = () => {
                 <p className="text-gray-700"><span className="font-medium">Power:</span> {productData.power || "Zero Power"}</p>
                 <p className="text-gray-700"><span className="font-medium">Frame Color:</span> {productData.frameColour}</p>
                 <div className="flex flex-col gap-4">
-                  <p className="font-medium" >Select Size:</p>
+                  <p className="font-medium text-gray-700" >Select Size:</p>
                   <div className="flex gap-2">
                     {productData.sizes.map((item,index) => (
                       <button 
                         onClick={() => setSize(item)} 
-                        className={`btn btn-circle text-lg h-18 w-18 ring-1 ring-blue-900 cursor-pointer transition ${
+                        className={`btn btn-circle text-lg h-18 text-blue-500 w-18 ring-1 ring-blue-900 cursor-pointer transition ${
                           item === size ? 'bg-blue-500 text-white' : 'bg-gray-100'
                         }`} 
                         key={index}
@@ -170,11 +170,11 @@ const SinglePage = () => {
               <div className='pt-5'>
                 <div className='bg-white mb-2 rounded cursor-pointer' onClick={() => toggleSection('technicalInfo')}> 
                   <div className='flex justify-between items-center p-2'>
-                    <span>Technical Information</span>
-                    {openSections.technicalInfo ? <FaChevronUp /> : <FaChevronDown />}
+                    <span className="text-gray-700">Technical Information</span>
+                    {openSections.technicalInfo ? <FaChevronUp className="text-gray-700"/> : <FaChevronDown className="text-gray-700"/>}
                   </div>  
                 </div>
-                <hr className="my-4" />
+                <hr className="my-4 bg-gray-700" />
                 <AnimatePresence>
                   {openSections.technicalInfo && (
                     <motion.div
