@@ -1,12 +1,16 @@
 import { Star } from "lucide-react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
 
 const ProductItem = ({ product }) => {
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  
   const [isHovered, setIsHovered] = useState(false);
   const [currentImage, setCurrentImage] = useState(product.image[0]); // Default image
+  const { wishlistItems, addToWishlist, removeWishlist } = useContext(ShopContext);
+
+  const isWishlisted = wishlistItems[product._id];
 
   // Ensure product.colors is an array
   const productColors = Array.isArray(product.colors) ? product.colors : [];
@@ -32,7 +36,11 @@ const ProductItem = ({ product }) => {
         <button
           onClick={(e) => {
             e.preventDefault(); // Prevents Link navigation on button click
-            setIsWishlisted(!isWishlisted);
+            if (isWishlisted) {
+              removeWishlist(product._id);
+            } else {
+              addToWishlist(product._id);
+            }
           }}
           className="absolute top-3 right-3 text-2xl transition-transform transform hover:scale-110 cursor-pointer"
         >
