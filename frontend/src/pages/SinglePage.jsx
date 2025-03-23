@@ -112,7 +112,7 @@ const SinglePage = () => {
                   {Math.round(((productData.price - productData.discounted_price) / productData.price) * 100)}% OFF
                 </span>
               </div>
-              
+          
               <hr className="my-4" />
               
               {/* Product Details */}
@@ -125,7 +125,7 @@ const SinglePage = () => {
                     {productData.sizes.map((item,index) => (
                       <button 
                         onClick={() => setSize(item)} 
-                        className={`ring-1 ring-blue-900 py-2 px-4 cursor-pointer transition ${
+                        className={`btn btn-circle text-lg h-18 w-18 ring-1 ring-blue-900 cursor-pointer transition ${
                           item === size ? 'bg-blue-500 text-white' : 'bg-gray-100'
                         }`} 
                         key={index}
