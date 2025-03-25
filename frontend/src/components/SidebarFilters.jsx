@@ -76,7 +76,7 @@ const SidebarFilters = ({ setFilteredProducts }) => {
           <div className="mt-2 space-y-2">
             {[...new Set(products.map((p) => p.brand))].map((brand, index) => (
               <label key={index} className="flex items-center space-x-2 text-gray-700">
-                <input type="checkbox" className="w-4 h-4" checked={selectedBrands.includes(brand)} onChange={() => handleCheckboxChange(brand, selectedBrands, setSelectedBrands)} />
+                <input type="checkbox" className="checkbox checkbox-primary w-4 h-4" checked={selectedBrands.includes(brand)} onChange={() => handleCheckboxChange(brand, selectedBrands, setSelectedBrands)} />
                 <span>{brand}</span>
               </label>
             ))}
@@ -93,7 +93,7 @@ const SidebarFilters = ({ setFilteredProducts }) => {
           <div className="mt-2 space-y-2">
             {[...new Set(products.map((p) => p.frameColour))].map((colour, index) => (
               <label key={index} className="flex items-center space-x-2 text-gray-700">
-                <input type="checkbox" className="w-4 h-4" checked={selectedColours.includes(colour)} onChange={() => handleCheckboxChange(colour, selectedColours, setSelectedColours)} />
+                <input type="checkbox" className="checkbox checkbox-info w-4 h-4" checked={selectedColours.includes(colour)} onChange={() => handleCheckboxChange(colour, selectedColours, setSelectedColours)} />
                 <span>{colour}</span>
               </label>
             ))}
@@ -110,7 +110,7 @@ const SidebarFilters = ({ setFilteredProducts }) => {
           <div className="mt-2 space-y-2">
             {[...new Set(products.flatMap((p) => p.sizes))].map((size, index) => (
               <label key={index} className="flex items-center space-x-2 text-gray-700">
-                <input type="checkbox" className="w-4 h-4" checked={selectedSizes.includes(size)} onChange={() => handleCheckboxChange(size, selectedSizes, setSelectedSizes)} />
+                <input type="checkbox" className="checkbox checkbox-primary w-4 h-4" checked={selectedSizes.includes(size)} onChange={() => handleCheckboxChange(size, selectedSizes, setSelectedSizes)} />
                 <span>{size}</span>
               </label>
             ))}

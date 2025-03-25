@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { CircleArrowOutUpLeft, ScanSearch, Search, Star } from "lucide-react";
 import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -27,7 +27,10 @@ const ProductItem = ({ product }) => {
           setIsHovered(false);
           setCurrentImage(product.image[0]); // Reset to first image
         }}
-      >
+      >   
+
+      <div className="badge badge-primary items-center">{Math.round(((product.price - product.discounted_price) / product.price) * 100)}% OFF</div>
+
         {/* Wishlist Icon */}
         <button
           onClick={(e) => {
@@ -52,14 +55,15 @@ const ProductItem = ({ product }) => {
           />
         </div>
 
-        <hr className="my-4 mt-0" />
 
-        {/* Product Details */}
-        <h3 className="mt-2 text-gray-700 text-sm lg:text-lg font-medium truncate w-full overflow-hidden whitespace-nowrap">
+        <div className="divider divider-primary">
+        <div className="mt-2 text-sm lg:text-sm truncate w-full text-gray-700 font-medium overflow-hidden whitespace-nowrap">
           {product.name}
-        </h3>
+        </div>
+      </div>
 
-        <p className="mt-2 text-sm text-gray-600 flex gap-1">
+        <div className="bg-gradient-to-r from-cyan-50 to-sky-50" >
+        <p className="mt-2 text-sm text-gray-600 flex gap-1 ">
           <Star className="w-4" /> {product.rating} ({product.reviews} reviews)
         </p>
         <div className="flex items-center gap-2">
@@ -68,16 +72,28 @@ const ProductItem = ({ product }) => {
             {product.frameColour}
           </p>
         </div>
-
+        
         {/* Price & Offered Price */}
         <div className="flex justify-between mt-2">
           <div className="flex items-center gap-2">
             <span className="text-blue-500 font-semibold">₹{product.discounted_price}</span>
             <span className="text-blue-900 line-through">₹{product.price}</span>
-          </div>
-
-          {/* Color Options */}
-          
+          </div>          
+        </div>
+        
+        <div className="flex justify-between" >
+          <p className="text-sm text-gray-700" >Price dropped by <span className="text-lg font-bold text-pink-500"  >₹{product.price - product.discounted_price}</span></p>
+            <div className="dropdown dropdown-top dropdown-end dropdown-hover">
+              <div tabIndex={0} role="button" className="btn m-1 rounded-2xl border-2 border-dashed border-black bg-white px-3 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"> <Search className="w-5 h-5" /> </div>
+              <ul tabIndex={0} className="dropdown-content font-semibold menu bg-gray-100 rounded-box z-1 w-52 p-2 shadow-sm border-2 border-dashed">
+                <li><a>Name: {product.name} </a></li>
+                <li><a>Category: {product.category }</a></li>
+                <li><a>Frame Width: {product.frameWidth} </a></li>
+                <li><a>Frame Dimensions: {product.frameDimensions} </a></li>
+                <li><a>Brand: {product.brand} </a></li>
+              </ul>
+            </div>
+        </div>
         </div>
       </div>
     </Link>
