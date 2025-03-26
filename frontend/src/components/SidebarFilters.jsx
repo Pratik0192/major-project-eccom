@@ -47,11 +47,11 @@ const SidebarFilters = ({ setFilteredProducts }) => {
       {/* Price Filter */}
       <div className="mb-4">
         <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("price")}>
-          <h3 className="font-semibold text-lg">PRICE</h3>
+          <h3 className="font-semibold text-gray-700 text-lg">PRICE</h3>
           {openSections.price ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {openSections.price && (
-          <div className="mt-2">
+          <div className="mt-2 text-gray-700">
             <Slider
               min={0}
               max={10000}
@@ -69,14 +69,14 @@ const SidebarFilters = ({ setFilteredProducts }) => {
       
       <div className="mb-4">
         <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("brand")}>
-          <h3 className="font-semibold text-lg">BRANDS</h3>
+          <h3 className="font-semibold text-gray-700 text-lg">BRANDS</h3>
           {openSections.brand ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {openSections.brand && (
           <div className="mt-2 space-y-2">
             {[...new Set(products.map((p) => p.brand))].map((brand, index) => (
               <label key={index} className="flex items-center space-x-2 text-gray-700">
-                <input type="checkbox" className="w-4 h-4" checked={selectedBrands.includes(brand)} onChange={() => handleCheckboxChange(brand, selectedBrands, setSelectedBrands)} />
+                <input type="checkbox" className="checkbox checkbox-primary w-4 h-4" checked={selectedBrands.includes(brand)} onChange={() => handleCheckboxChange(brand, selectedBrands, setSelectedBrands)} />
                 <span>{brand}</span>
               </label>
             ))}
@@ -86,14 +86,14 @@ const SidebarFilters = ({ setFilteredProducts }) => {
       
       <div className="mb-4">
         <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("frameColour")}>
-          <h3 className="font-semibold text-lg">FRAME COLOURS</h3>
+          <h3 className="font-semibold text-gray-700 text-lg">FRAME COLOURS</h3>
           {openSections.frameColour ? <FaChevronUp /> : <FaChevronDown />}
         </div>
         {openSections.frameColour && (
           <div className="mt-2 space-y-2">
             {[...new Set(products.map((p) => p.frameColour))].map((colour, index) => (
               <label key={index} className="flex items-center space-x-2 text-gray-700">
-                <input type="checkbox" className="w-4 h-4" checked={selectedColours.includes(colour)} onChange={() => handleCheckboxChange(colour, selectedColours, setSelectedColours)} />
+                <input type="checkbox" className="checkbox checkbox-info w-4 h-4" checked={selectedColours.includes(colour)} onChange={() => handleCheckboxChange(colour, selectedColours, setSelectedColours)} />
                 <span>{colour}</span>
               </label>
             ))}
@@ -110,7 +110,7 @@ const SidebarFilters = ({ setFilteredProducts }) => {
           <div className="mt-2 space-y-2">
             {[...new Set(products.flatMap((p) => p.sizes))].map((size, index) => (
               <label key={index} className="flex items-center space-x-2 text-gray-700">
-                <input type="checkbox" className="w-4 h-4" checked={selectedSizes.includes(size)} onChange={() => handleCheckboxChange(size, selectedSizes, setSelectedSizes)} />
+                <input type="checkbox" className="checkbox checkbox-primary w-4 h-4" checked={selectedSizes.includes(size)} onChange={() => handleCheckboxChange(size, selectedSizes, setSelectedSizes)} />
                 <span>{size}</span>
               </label>
             ))}

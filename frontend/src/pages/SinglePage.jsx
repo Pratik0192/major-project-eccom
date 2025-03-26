@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar";
 import Navbar1 from "../components/Navbar1";
 import { ShopContext } from "../context/ShopContext";
 import ProductItem from "../components/ProductItem";
-import Footer from "../components/Footer";
 import { Heart } from "lucide-react";
 import tryon from '../assets/3d.jpg';
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
@@ -17,7 +16,8 @@ const SinglePage = () => {
   const [productData, setProductData] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [openSections, setOpenSections] = useState({ technicalInfo: false });
-  const [size, setSize] = useState('')
+  const [size, setSize] = useState('');
+  const [countdown, setCountdown] = useState(3600); // Countdown in seconds (1 hour)
 
   useEffect(() => {
     const fetchProductData = () => {
@@ -41,6 +41,14 @@ const SinglePage = () => {
     fetchProductData();
   }, [productId, products]);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCountdown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   if (!productData) {
     return (
       <>
@@ -57,12 +65,20 @@ const SinglePage = () => {
 
   const toggleSection = (section) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
-  };  
+  };
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return { minutes, seconds: secs };
+  };
+
+  const { minutes, seconds } = formatTime(countdown);
 
   return (
     <>
       {/* Product Details Section */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 bg-white">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Side - Product Images */}
           <div className="md:w-3/4">
@@ -89,14 +105,14 @@ const SinglePage = () => {
           <div className="md:w-1/4">
             <div className="bg-white rounded-lg p-6 shadow-lg shadow-blue-700">
               <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold mb-2">{productData.name}</h1>
+                <h1 className="text-2xl text-blue-700 font-bold mb-2">{productData.name}</h1>
                 <Link to='/wishlist' className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
                   <Heart className="w-7 h-7"/>
                 </Link>
               </div>
 
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-sm bg-yellow-100 px-2 py-1 rounded">
+                <span className="text-sm text-yellow-600 bg-yellow-100 px-2 py-1 rounded">
                   ⭐ {productData.rating} ({productData.reviews} reviews)
                 </span>
               </div>
@@ -112,7 +128,12 @@ const SinglePage = () => {
                   {Math.round(((productData.price - productData.discounted_price) / productData.price) * 100)}% OFF
                 </span>
               </div>
-              
+
+              {/* Countdown for Free Delivery */}
+              <div className="mt-4 text-sm lg:text-lg font-semibold text-gray-500">
+                Free delivery if ordered within <span className="text-red-500" >{minutes}m {seconds}s</span>
+              </div>
+          
               <hr className="my-4" />
               
               {/* Product Details */}
@@ -120,21 +141,25 @@ const SinglePage = () => {
                 <p className="text-gray-700"><span className="font-medium">Power:</span> {productData.power || "Zero Power"}</p>
                 <p className="text-gray-700"><span className="font-medium">Frame Color:</span> {productData.frameColour}</p>
                 <div className="flex flex-col gap-4">
-                  <p className="font-medium" >Select Size:</p>
+                  <p className="font -medium text-gray-700">Select Size:</p>
                   <div className="flex gap-2">
-                    {productData.sizes.map((item,index) => (
-                      <button 
-                        onClick={() => setSize(item)} 
-                        className={`ring-1 ring-blue-900 py-2 px-4 cursor-pointer transition ${
-                          item === size ? 'bg-blue-500 text-white' : 'bg-gray-100'
-                        }`} 
-                        key={index}
-                      >
-                        {item}
-                    </button>
-                    ))}
+                    {productData.sizes.map((item, index) => {
+                      const displaySize = item === 'small' ? 'S' : item === 'medium' ? 'M' : item === 'large' ? 'L' : item;
+
+                      return (
+                        <button 
+                          onClick={() => setSize(item)} 
+                          className={`btn btn-circle text-lg h-18 text-blue-500 w-18 ring-1 ring-blue-900 cursor-pointer transition ${
+                            item === size ? 'bg-blue-500 text-white' : 'bg-gray-100'
+                          }`} 
+                          key={index}
+                        >
+                          {displaySize}
+                        </button>
+                      );
+                    })}
                   </div>
-              </div>
+                </div>
 
                 {productData.description && (
                   <p className="text-gray-700">{productData.description}</p>
@@ -147,10 +172,12 @@ const SinglePage = () => {
               
               {/* Add to Cart & Buy Now Buttons */}
               <div className="flex gap-4 mb-6">
-                <button onClick={() => addToCart(productData._id, size)} className="bg-cyan-500 hover:bg-blue-300 text-white font-medium py-2 px-6 rounded transition cursor-pointer">
-                  Add to Cart
-                </button>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded transition cursor-pointer">
+                <div className="bg-white flex items-center justify-center">
+                  <button onClick={() => addToCart(productData._id, size)} className="px-6 py-2 font-medium bg-indigo-500 text-white w-fit transition-all shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] hover:translate-y-[3px] cursor-pointer ">
+                    Add to Cart
+                  </button>
+                </div>
+                <button className="rounded-2xl border-2 border-dashed border-black bg-white px-6 py-3 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none cursor-pointer">
                   Buy Now
                 </button>
               </div>
@@ -170,11 +197,11 @@ const SinglePage = () => {
               <div className='pt-5'>
                 <div className='bg-white mb-2 rounded cursor-pointer' onClick={() => toggleSection('technicalInfo')}> 
                   <div className='flex justify-between items-center p-2'>
-                    <span>Technical Information</span>
-                    {openSections.technicalInfo ? <FaChevronUp /> : <FaChevronDown />}
+                    <span className="text-gray-700">Technical Information</span>
+                    {openSections.technicalInfo ? <FaChevronUp className="text-gray-700"/> : <FaChevronDown className="text-gray-700"/>}
                   </div>  
                 </div>
-                <hr className="my-4" />
+                <hr className="my-4 bg-gray-700" />
                 <AnimatePresence>
                   {openSections.technicalInfo && (
                     <motion.div
@@ -199,7 +226,7 @@ const SinglePage = () => {
         
         {/* Related Products Section */}
         <div className="mt-12">
-          <h2 className="text-xl font-bold mb-6">Related Products</h2>
+          <h2 className="text-xl text-black font-bold mb-6">Related Products</h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {relatedProducts.map((product) => (

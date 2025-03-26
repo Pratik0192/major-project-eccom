@@ -14,12 +14,15 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [products, setProducts] = useState([]);
   const [token, setToken] = useState("")
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [warningVisible, setWarningVisible] = useState(false); 
   const navigate = useNavigate();
 
   const addToCart = async(itemId, size) => {
     console.log("Add to Cart Clicked", { itemId, size }); // Debugging
     if(!size) {
-      toast.error("Select a size first");
+      setWarningVisible(true); // ✅ Show warning alert
+      setTimeout(() => setWarningVisible(false), 3000)
       return;
     }
 
@@ -39,6 +42,8 @@ const ShopContextProvider = (props) => {
 
     console.log("After Update", cartData); // Debugging
     setCartItems({...cartData}); // Ensure React detects changes
+    setAlertVisible(true);
+    setTimeout(() => setAlertVisible(false), 3000);
 
     if(token) {
       try {
@@ -162,6 +167,43 @@ const ShopContextProvider = (props) => {
   return (
     <ShopContext.Provider value={value} >
       {props.children}
+      {alertVisible && (
+        <div className="fixed bottom-4 right-4 alert alert-success shadow-lg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-16 w-16 shrink-0 stroke-current"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span>Item added to cart successfully!</span>
+        </div>
+      )}
+
+      {warningVisible && (
+        <div className="fixed bottom-4 right-4 alert alert-warning shadow-lg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-16 w-16 shrink-0 stroke-current"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+          <span>Warning: Select a size first!</span>
+        </div>
+      )}
     </ShopContext.Provider>
   )
 }
