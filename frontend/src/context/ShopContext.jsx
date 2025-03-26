@@ -233,7 +233,7 @@ const ShopContextProvider = (props) => {
     }
   }, []);
   
-  //console.log("token from context ", token);
+  console.log("token from context ", token);
 
   const value = {
     products, currency, delivery_fee,
