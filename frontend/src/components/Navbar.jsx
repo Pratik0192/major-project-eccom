@@ -8,7 +8,8 @@ import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { token, setToken, getCartCount } = useContext(ShopContext);
+  const { token, setToken, getCartCount, wishlistItems } = useContext(ShopContext);
+  const [ wishlistCount, setWishlistCount ] = useState(0);
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -26,15 +27,16 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setWishlistCount(Object.keys(wishlistItems).length);
+  }, [wishlistItems]);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
   };
 
   return (
-
-    
-
     <header className="sticky top-0 bg-white border-b border-gray-300 shadow-sm">
       <div className="max-w-7xl mx-auto">
         {/* Mobile Nav */}
@@ -171,14 +173,19 @@ const Navbar = () => {
               </li>
 
               <li className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
-                <Link to="/wishlist" >
+                <Link to="/wishlist"  className="relative">
                   <Heart className="w-7 h-7"/>
+                  <p className="absolute right-[-5px] top-[-5px] w-4 text-center leading-4 bg-blue-700 text-white aspect-square rounded-full text-[8px] ">
+                    {wishlistCount}
+                  </p>
                 </Link>
               </li>
               <li className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
                 <Link to="/cart" className="relative">
                   <ShoppingBag className="w-7 h-7" />
-                  <p className="absolute right-[-5px] top-[-5px] w-4 text-center leading-4 bg-blue-700 text-white aspect-square rounded-full text-[8px] ">{getCartCount()}</p>
+                  <p className="absolute right-[-5px] top-[-5px] w-4 text-center leading-4 bg-blue-700 text-white aspect-square rounded-full text-[8px] ">
+                    {getCartCount()}
+                  </p>
                 </Link>
               </li>
             </ul>
