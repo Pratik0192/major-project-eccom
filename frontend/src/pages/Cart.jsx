@@ -1,3 +1,4 @@
+import { Check, Cross, X } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 
@@ -40,25 +41,23 @@ const Cart = () => {
   console.log(cartData);
 
   return (
-    <div className="bg-gray-100 min-h-screen text-gray-700">
+    <div className="bg-white min-h-screen text-gray-700">
 
       {/* Main Cart Section */}
       <div className="max-w-6xl mx-auto p-4 lg:flex lg:gap-6">
         {/* Cart Items Section */}
         <div className="lg:w-2/3 bg-white shadow-md p-4 rounded-md">
-          <h2 className="text-2xl font-semibold mb-4">Cart ({cartData.length} items)</h2>
+          <h2 className="text-2xl md:text-3xl text-gray-900 font-bold text-center mb-7">Shopping Cart ({cartData.length} items)</h2>
           {cartData.map((item) => (
-            <div key={item.id} className="flex gap-4 p-4 border-b">
-              <img src={item.image?.[0]} alt={item.name} className="w-24 h-24 object-cover rounded-md" />
+            <div key={item.id} className="flex gap-4 p-4 border-b border-t border-gray-200">
+              <img src={item.image?.[0]} alt={item.name} className="w-24 h-24 md:w-36 md:w-36 object-cover rounded-md" />
               <div className="flex-1">
-                <h3 className="text-lg font-medium">{item.name}</h3>
-                <p className="text-gray-500 line-through">₹{item.price}</p>
+                <h3 className="text-lg text-gray-900 font-medium">{item.name}</h3>
                 <p className="text-xl font-bold">₹{item.originalPrice}</p>
                 <p className="text-md font-medium">{item.size}</p>
               </div>
-              <div className="flex flex-col justify-center space-y-2">
-                <button className="text-blue-500 hover:underline">Remove</button>
-                <button className="text-blue-500 hover:underline">Repeat</button>
+              <div>
+                <button className="text-red-700 hover:underline cursor-pointer"><X /> </button>
               </div>
             </div>
           ))}
@@ -77,17 +76,17 @@ const Cart = () => {
           </div>
 
           {/* Apply Coupon */}
-          <button className="w-full border border-gray-300 p-2 rounded-md mt-4 hover:bg-gray-200">
+          <button className="w-full border btn border-gray-300 p-2 rounded-md mt-4 text-gray-700" disabled="disabled">
             Apply Coupon
           </button>
 
           {/* Apply Insurance */}
-          <button className="w-full border border-gray-300 p-2 rounded-md mt-2 hover:bg-gray-200">
+          <button className="w-full border border-gray-300 p-2 rounded-md mt-2 text-gray-700" disabled="disabled">
             Apply Insurance
           </button>
 
           {/* Checkout Button */}
-          <button onClick={()=>navigate('/checkout')} className="w-full bg-green-500 text-white font-semibold p-3 rounded-md mt-4 hover:bg-green-600">
+          <button onClick={()=>navigate('/checkout')} className="w-full bg-blue-700 text-white font-semibold p-3 rounded-md mt-4 cursor-pointer hover:bg-blue-600">
             Proceed To Checkout →
           </button>
         </div>

@@ -123,88 +123,116 @@ const Shipping = () => {
   return (
     <form className="bg-gray-100 min-h-screen p-4 text-gray-700" onSubmit={onSubmitHandler}>
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-6">
-        {/* Left Side: Shipping Form */}
-        <div className="w-full lg:w-2/3 bg-white shadow-md p-6 rounded-md">
-          <h2 className="text-2xl font-semibold mb-4">Shipping Details</h2>
-          <div className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={onChangeHandler}
-                placeholder="First Name"
-                className="border p-2 w-full rounded-md"
-              />
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={onChangeHandler}
-                placeholder="Last Name"
-                className="border p-2 w-full rounded-md"
-              />
-            </div>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={onChangeHandler}
-              placeholder="Email"
-              className="border p-2 w-full rounded-md"
-            />
+       {/* Left Side: Shipping Form */}
+      <div className="w-full lg:w-2/3 bg-white shadow-md p-6 rounded-md">
+        <h2 className="text-2xl font-semibold mb-4 text-black">Shipping Details</h2>
+
+        <fieldset className="fieldset w-full bg-base-200 bg-white text-black border border-base-300 p-4 rounded-box">
+          <legend className="fieldset-legend text-lg font-bold text-black">Personal Information</legend>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label className="fieldset-label text-black">First Name</label>
             <input
               type="text"
-              name="street"
-              value={formData.street}
+              name="firstName"
+              value={formData.firstName}
               onChange={onChangeHandler}
-              placeholder="Street Address"
-              className="border p-2 w-full rounded-md"
+              className="input w-full bg-gray-300"
+              placeholder="First name"
             />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <label className="fieldset-label text-black">Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={onChangeHandler}
+              className="input w-full bg-gray-300"
+              placeholder="Last name"
+            />
+          </div>
+
+          <label className="fieldset-label text-black">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={onChangeHandler}
+            className="input w-full bg-gray-300"
+            placeholder="example@example.com"
+          />
+        </fieldset>
+
+        <fieldset className="fieldset w-full bg-base-200 border bg-white border-base-300 p-4 rounded-box mt-4">
+          <legend className="fieldset-legend text-lg font-bold text-black">Address Details</legend>
+          <label className="fieldset-label text-black">Street Address</label>
+          <input
+            type="text"
+            name="street"
+            value={formData.street}
+            onChange={onChangeHandler}
+            className="input w-full bg-gray-300"
+            placeholder="123 Main St"
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 bg-white gap-4">
+            <div>
+              <label className="fieldset-label text-black">City</label>
               <input
                 type="text"
                 name="city"
                 value={formData.city}
                 onChange={onChangeHandler}
+                className="input w-full bg-gray-300"
                 placeholder="City"
-                className="border p-2 w-full rounded-md"
               />
+            </div>
+
+            <div>
+              <label className="fieldset-label text-black">State</label>
               <input
                 type="text"
                 name="state"
                 value={formData.state}
                 onChange={onChangeHandler}
-                placeholder="State"
-                className="border p-2 w-full rounded-md"
+                className="input w-full bg-gray-300"
+                placeholder="NY"
               />
+            </div>
+
+            <div>
+              <label className="fieldset-label text-black">Zipcode</label>
               <input
                 type="text"
                 name="zipcode"
                 value={formData.zipcode}
                 onChange={onChangeHandler}
-                placeholder="Zipcode"
-                className="border p-2 w-full rounded-md"
+                className="input w-full bg-gray-300"
+                placeholder="10001"
               />
             </div>
-            <input
-              type="text"
-              name="country"
-              value={formData.country}
-              onChange={onChangeHandler}
-              placeholder="Country"
-              className="border p-2 w-full rounded-md"
-            />
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={onChangeHandler}
-              placeholder="Phone Number"
-              className="border p-2 w-full rounded-md"
-            />
           </div>
-        </div>
+
+          <label className="fieldset-label text-black">Country</label>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={onChangeHandler}
+            className="input w-full bg-gray-300"
+            placeholder="INDIA"
+          />
+
+          <label className="fieldset-label text-black">Phone Number</label>
+          <input
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={onChangeHandler}
+            className="input w-full bg-gray-300"
+            placeholder="+91 234 567 890"
+          />
+        </fieldset>
+      </div>
 
         {/* Right Side: Bill Details */}
         <div className="w-full lg:w-1/3 bg-white shadow-md p-6 rounded-md">
@@ -233,39 +261,39 @@ const Shipping = () => {
           {/* Payment Method */}
           <div className="mt-4">
             <h3 className="text-lg font-semibold">Payment Method</h3>
-            <div className="flex items-center gap-4 mt-2">
-              <label className="flex items-center gap-2 cursor-pointer">
+            <div className="items-center gap-4 mt-2">
+              <label className="flex items-center gap-2 cursor-pointer mb-2">
                 <input
                   type="radio"
                   name="paymentMethod"
                   value="stripe"
                   checked={paymentMethod === "stripe"}
                   onChange={() => setPaymentMethod("stripe")}
-                  className="w-4 h-4"
+                  className="w-4 h-4 radio radio-primary checked:bg-white bg-white"
                 />
                 <img className='h-5' src={stripelogo} alt="" />
               </label>
 
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="flex items-center gap-2 cursor-pointer mb-2">
                 <input
                   type="radio"
                   name="paymentMethod"
                   value="razorpay"
                   checked={paymentMethod === "razorpay"}
                   onChange={() => setPaymentMethod("razorpay")}
-                  className="w-4 h-4"
+                  className="w-4 h-4 radio radio-primary checked:bg-white  bg-white"
                 />
                 <img className='h-5' src={razorpaylogo} alt="" />
               </label>
 
-              <label className="flex items-center gap-2 cursor-pointer">
+              <label className="flex items-center gap-2 bg-white cursor-pointer mb-2">
                 <input
                   type="radio"
                   name="paymentMethod"
                   value="cod"
                   checked={paymentMethod === "cod"}
                   onChange={() => setPaymentMethod("cod")}
-                  className="w-4 h-4"
+                  className="w-4 h-4 radio radio-primary checked:bg-white  bg-white"
                 />
                 <span className="">Cash on Delivery</span>
               </label>
@@ -274,7 +302,7 @@ const Shipping = () => {
 
           <button
             type="submit"
-            className="w-full bg-green-500 text-white font-semibold p-3 rounded-md mt-4 hover:bg-green-600"
+            className="w-full bg-blue-700 text-white font-semibold p-3 rounded-md mt-4 cursor-pointer hover:bg-blue-600"
           >
             Place Order
           </button>

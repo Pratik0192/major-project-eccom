@@ -13,3 +13,20 @@
   .loop-scroll {
     animation: loop-scroll 60s linear infinite
   }
+
+  .vignette-effect {
+    position: relative;
+    display: block;
+  }
+  
+  .vignette-effect::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%; /* Adjust the height of the vignette */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+    pointer-events: none;
+  }
+  

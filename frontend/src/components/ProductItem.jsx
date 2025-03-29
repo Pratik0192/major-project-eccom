@@ -1,4 +1,4 @@
-import { CircleArrowOutUpLeft, ScanSearch, Search, Star } from "lucide-react";
+import { Search, Star } from "lucide-react";
 import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -47,11 +47,11 @@ const ProductItem = ({ product }) => {
         </button>
 
         {/* Product Image */}
-        <div className="h-40 lg:h-56 overflow-hidden flex items-center justify-center">
+        <div className="h-40 lg:h-56 overflow-hidden flex items-center justify-center vignette-effect">
           <img
             src={currentImage}
             alt={product.name}
-            className="w-full h-full object-contain transition-opacity duration-300"
+            className="w-full h-full object-contain transition-opacity duration-300 vignette-effect"
           />
         </div>
 
@@ -85,7 +85,7 @@ const ProductItem = ({ product }) => {
           <p className="text-sm text-gray-700" >Price dropped by <span className="text-lg font-bold text-pink-500"  >₹{product.price - product.discounted_price}</span></p>
             <div className="dropdown dropdown-top dropdown-end dropdown-hover">
               <div tabIndex={0} role="button" className="btn m-1 rounded-2xl border-2 border-dashed border-black bg-white px-3 py-1 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"> <Search className="w-5 h-5" /> </div>
-              <ul tabIndex={0} className="dropdown-content font-semibold menu bg-gray-100 rounded-box z-1 w-52 p-2 shadow-sm border-2 border-dashed">
+              <ul tabIndex={0} className="dropdown-content font-semibold menu bg-gray-100 text-gray-800 rounded-box z-1 w-52 p-2 shadow-sm border-2 border-dashed">
                 <li><a>Name: {product.name} </a></li>
                 <li><a>Category: {product.category }</a></li>
                 <li><a>Frame Width: {product.frameWidth} </a></li>
