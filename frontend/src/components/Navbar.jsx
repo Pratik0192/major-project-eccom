@@ -59,11 +59,11 @@ const Navbar = () => {
               e.stopPropagation();
               setMobileNavOpen(false);
             }}
-            className="md:hidden p-4 bg-white rounded-lg font-semibold text-lg mt-2 flex flex-col gap-3 items-center "
+            className="md:hidden p-4 bg-white rounded-lg font-semibold text-lg mt-2 flex flex-row gap-2"
           >
-            <li className="relative cursor-pointer">
+            <li className="relative cursor-pointer text-blue-950">
               <div 
-                className="flex items-center hover:text-blue-500"
+                className="flex items-center text-blue-950"
                 onClick={() => setIsOpen(!isOpen)}
               >
                 <CircleUser className="w-7 h-7"/>
@@ -91,10 +91,10 @@ const Navbar = () => {
               )}
             </li>
             <li className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
-              <Heart className="w-7 h-7" />
+              <Heart className="w-7 h-7 text-blue-950" />
             </li>
             <li className="cursor-pointer hover:text-blue-500 flex items-center gap-2">
-              <ShoppingBag className="w-7 h-7" />
+              <ShoppingBag className="w-7 h-7 text-blue-950" />
             </li>
           </ul>
         )}

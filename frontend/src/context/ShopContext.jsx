@@ -74,22 +74,55 @@ const ShopContextProvider = (props) => {
     return totalCount;
   }
 
-  const updateQuantity = async(itemId, size, quantity) => {
+  const updateQuantity = async (itemId, size, quantity) => {
     let cartData = structuredClone(cartItems);
-
-    cartData[itemId][size] = quantity;
-
-    setCartItems(cartData);
-
-    if(token) {
+  
+    if (quantity === 0) {
+      delete cartData[itemId][size]; // Remove item if quantity is 0
+      if (Object.keys(cartData[itemId]).length === 0) {
+        delete cartData[itemId]; // Remove product if no sizes remain
+      }
+    } else {
+      cartData[itemId][size] = quantity;
+    }
+  
+    setCartItems({ ...cartData });
+  
+    if (token) {
       try {
-        await axios.post(backendUrl + '/api/cart/update', { itemId, size, quantity }, {headers: {token}})
+        await axios.post(backendUrl + "/api/cart/update", { itemId, size, quantity }, { headers: { token } });
       } catch (error) {
         console.log(error);
-        toast.error(error.message)
+        toast.error(error.message);
       }
     }
-  }
+  };
+
+  const removeFromCart = async (itemId, size) => {
+    let cartData = structuredClone(cartItems);
+    
+    if (cartData[itemId]) {
+      delete cartData[itemId][size]; // Remove specific size entry
+  
+      if (Object.keys(cartData[itemId]).length === 0) {
+        delete cartData[itemId]; // If no sizes remain, remove the item
+      }
+    }
+  
+    setCartItems({ ...cartData });
+  
+    if (token) {
+      try {
+        await axios.post(backendUrl + "/api/cart/remove", { itemId, size }, { headers: { token } });
+        console.log("Item removed from cart on backend");
+      } catch (error) {
+        console.log("Backend Error", error.response?.data || error.message);
+        toast.error(error.message);
+      }
+    }
+  };
+  
+  
 
   const getCartAmount = () => {
     let totalAmount = 0;
@@ -238,14 +271,14 @@ const ShopContextProvider = (props) => {
   const value = {
     products, currency, delivery_fee,
     search, setSearch,
-    cartItems, addToCart, setCartItems,
+    cartItems, addToCart, removeFromCart , setCartItems,
     getCartCount, updateQuantity,
     getCartAmount,
     wishlistItems, addToWishlist, removeWishlist, getWishlistedItems,
     getWishlistCount,
     navigate,
     backendUrl,
-    setToken, token
+    setToken, token 
   }
 
   return (

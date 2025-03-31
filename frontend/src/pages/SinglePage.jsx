@@ -4,8 +4,6 @@ import { ShopContext } from "../context/ShopContext";
 import ProductItem from "../components/ProductItem";
 import { BaggageClaim, Check, Heart, Truck } from "lucide-react";
 import tryon from '../assets/3d.jpg';
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion"; // Import Framer Motion components
 import Loading from "../components/Loading";
 
 const SinglePage = () => {
