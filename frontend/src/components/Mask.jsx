@@ -44,25 +44,25 @@ const Mask = () => {
           className="lg:max-w-6xl mx-auto mt-10 py-2 flex gap-4 flex-nowrap overflow-hidden"
         >
           <div className="flex gap-4 loop-scroll">
-            <div className="shadow-blue-500 shadow-md p-4 w-80 bg-white cursor-pointer ">
+            <div className="shadow-blue-500 text-gray-900 shadow-md p-4 w-80 bg-white cursor-pointer ">
               <img src={round} alt="" /> <p>Round</p>
             </div>
-            <div className="shadow-blue-500 shadow-md p-4 w-80 bg-white cursor-pointer">
+            <div className="shadow-blue-500 text-gray-900 shadow-md p-4 w-80 bg-white cursor-pointer">
               <img src={transparent} alt="" /> <p>Transparent</p>
             </div>
-            <div className="shadow-blue-500 shadow-md p-4 w-80 bg-white cursor-pointer">
+            <div className="shadow-blue-500 text-gray-900 shadow-md p-4 w-80 bg-white cursor-pointer">
               <img src={clubmaster} alt="" /> <p>Clubmaster</p>
             </div>
-            <div className="shadow-blue-500 shadow-md p-4 w-80 bg-white cursor-pointer">
+            <div className="shadow-blue-500 text-gray-900 shadow-md p-4 w-80 bg-white cursor-pointer">
               <img src={cateye} alt="" /> <p>Cat-eye</p>
             </div>
-            <div className="shadow-blue-500 shadow-md p-4 w-80 bg-white cursor-pointer">
+            <div className="shadow-blue-500 text-gray-900 shadow-md p-4 w-80 bg-white cursor-pointer">
               <img src={blend} alt="" /> <p>Blend Edit</p>
             </div>
-            <div className="shadow-blue-500 shadow-md p-4 w-80 bg-white cursor-pointer">
+            <div className="shadow-blue-500 text-gray-900 shadow-md p-4 w-80 bg-white cursor-pointer">
               <img src={airflex} alt="" /> <p>Air Flex</p>
             </div>
-            <div className="shadow-blue-500 shadow-md p-4 w-80 bg-white cursor-pointer">
+            <div className="shadow-blue-500 text-gray-900 shadow-md p-4 w-80 bg-white cursor-pointer">
               <img src={retro} alt="" /> <p>Retro Aviator</p>
             </div>
           </div>

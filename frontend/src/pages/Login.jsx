@@ -47,8 +47,8 @@ const Login = () => {
 
   return (
     <div className=''>
-      <div className="flex justify-center items-center min-h-screen bg-gray-100 px-6 py-2">
-        <div className="bg-white p-6 sm:p-8 rounded-lg shadow-md w-full max-w-md -mt-20 border border-gray-100">
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 px-6 py-2 ">
+        <div className="bg-white p-6 sm:p-8 rounded-lg shadow-md w-full max-w-md  border border-gray-100">
           {/* Header */}
           <img src={pic} className="mb-4" />
 
@@ -56,7 +56,7 @@ const Login = () => {
           <div className="flex justify-between bg-gray-200 rounded-md p-1 mb-6">
             <button
               className={`w-1/2 py-2 text-sm font-medium rounded-md transition ${
-                isLogin ? "bg-white shadow ring-1" : "text-gray-500"
+                isLogin ? "bg-white shadow ring-1 text-gray-900" : "text-gray-500"
               }`}
               onClick={() => { setIsLogin(true); reset(); setError(""); }}
             >
@@ -64,7 +64,7 @@ const Login = () => {
             </button>
             <button
               className={`w-1/2 py-2 text-sm font-medium rounded-md transition ${
-                !isLogin ? "bg-white shadow ring-1" : "text-gray-500"
+                !isLogin ? "bg-white shadow ring-1 text-gray-900" : "text-gray-500"
               }`}
               onClick={() => { setIsLogin(false); reset(); setError(""); }}
             >
@@ -83,13 +83,13 @@ const Login = () => {
                   type="text"
                   {...register("name", { required: !isLogin })}
                   placeholder="Enter your full name"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-blue-900"
+                  className="w-full p-2 border border-gray-300 text-gray-900 rounded-md focus:outline-blue-900"
                 />
                 <input
                   type="tel"
                   {...register("phone", { required: !isLogin, pattern: /^[0-9]{10}$/ })}
                   placeholder="Enter your phone number"
-                  className="w-full p-2 border border-gray-300 rounded-md focus:outline-blue-900"
+                  className="w-full p-2 border border-gray-300 text-gray-900 rounded-md focus:outline-blue-900"
                 />
               </>
             )}
@@ -97,13 +97,13 @@ const Login = () => {
               type="email"
               {...register("email", { required: true })}
               placeholder="Enter your email"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-blue-900"
+              className="w-full p-2 border border-gray-300 text-gray-900 rounded-md focus:outline-blue-900"
             />
             <input
               type="password"
               {...register("password", { required: true })}
               placeholder="Enter your password"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-blue-900"
+              className="w-full p-2 border border-gray-300 text-gray-900 rounded-md focus:outline-blue-900"
             />
 
             {isLogin && (
@@ -129,11 +129,11 @@ const Login = () => {
           </div>
 
           {/* Social Login Buttons */}
-          <button className="w-full flex items-center justify-center space-x-2 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition">
+          <button className="w-full flex text-gray-900 items-center justify-center space-x-2 border border-gray-300 py-2 rounded-md hover:bg-gray-100 transition">
             <FcGoogle size={20} />
             <span>Continue with Google</span>
           </button>
-          <button className="w-full flex items-center justify-center space-x-2 border border-gray-300 py-2 rounded-md mt-2 hover:bg-gray-100 transition">
+          <button className="w-full flex text-gray-900 items-center justify-center space-x-2 border border-gray-300 py-2 rounded-md mt-2 hover:bg-gray-100 transition">
             <Apple size={20} />
             <span>Continue with Apple</span>
           </button>
