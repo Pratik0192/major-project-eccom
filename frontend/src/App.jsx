@@ -14,6 +14,9 @@ import Wishlist from './pages/Wishlist'
 import { Toaster } from "react-hot-toast" //he ye kam karega 
 import Order from './pages/Order'
 import Verify from './pages/Verify'
+import ForgotPassword from './pages/ForgotPassword'
+import OTPVerification from './pages/OTPVerification'
+import ResetPassword from './pages/ResetPassword'
 
 const App = () => {
   return (
@@ -34,6 +37,9 @@ const App = () => {
         <Route path='/wishlist' element={<Wishlist />} />
         <Route path='/orders' element={ <Order /> } />
         <Route path='/verify' element={ <Verify /> } />
+        <Route path='/forgot-password' element={ <ForgotPassword /> } />
+        <Route path='/verification-otp' element={ <OTPVerification /> } />
+        <Route path='/reset-password' element={ <ResetPassword /> } />
       </Routes>
       <Footer />
     </div>

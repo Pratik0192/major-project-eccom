@@ -7,6 +7,7 @@ import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
 import { Apple } from "lucide-react";
 import { ShopContext } from '../context/ShopContext';
+import { Link } from 'react-router-dom';
 
 
 const Login = () => {
@@ -107,9 +108,9 @@ const Login = () => {
             />
 
             {isLogin && (
-              <div className="text-sm text-right text-blue-900 cursor-pointer">
+              <Link to='/forgot-password' className="text-sm text-right text-blue-900 cursor-pointer">
                 Forgot Password?
-              </div>
+              </Link>
             )}
 
             <button
