@@ -2,6 +2,8 @@ import Stripe from "stripe"
 import razorpay from "razorpay"
 import OrderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
+import sendEmail from "../config/sendEmail.js";
+import orderDetailTemplate from "../utils/orderDetailTemplate.js";
 
 const currency = 'inr'
 const deliveryCharge = 50
@@ -32,7 +34,23 @@ export const placeOrder = async(req, res) => {
     await newOrder.save()
 
     await userModel.findByIdAndUpdate(userId, {cartData: {}})
-    res.json({ success: true, message: "Order Places" })
+
+    const user = await userModel.findById(userId);
+    if(user && user.email) {
+      await sendEmail({
+        sendTo: user.email,
+        subject: "Order Confirmation - Your Order has been Placed!",
+        html: orderDetailTemplate({
+          orderId: newOrder._id,
+          items,
+          amount,
+          address,
+          paymentMethod: "COD"
+        })
+      })
+    }
+
+    res.json({ success: true, message: "Order Placed" })
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message})
