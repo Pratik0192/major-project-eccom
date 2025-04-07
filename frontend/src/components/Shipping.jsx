@@ -127,8 +127,8 @@ const Shipping = () => {
       <div className="w-full lg:w-2/3 bg-white shadow-md p-6 rounded-md">
         <h2 className="text-2xl font-semibold mb-4 text-black">Shipping Details</h2>
 
-        <fieldset className="fieldset w-full bg-base-200 bg-white text-black border border-base-300 p-4 rounded-box">
-          <legend className="fieldset-legend text-lg font-bold text-black">Personal Information</legend>
+        <fieldset className="fieldset w-full bg-white text-black border border-base-300 p-4 rounded-box">
+          <legend className="fieldset-legend text-lg font-semibold text-black">Personal Information</legend>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <label className="fieldset-label text-black">First Name</label>
             <input
@@ -162,8 +162,8 @@ const Shipping = () => {
           />
         </fieldset>
 
-        <fieldset className="fieldset w-full bg-base-200 border bg-white border-base-300 p-4 rounded-box mt-4">
-          <legend className="fieldset-legend text-lg font-bold text-black">Address Details</legend>
+        <fieldset className="fieldset w-full border bg-white border-base-300 p-4 rounded-box mt-4">
+          <legend className="fieldset-legend text-lg font-semibold text-black">Address Details</legend>
           <label className="fieldset-label text-black">Street Address</label>
           <input
             type="text"

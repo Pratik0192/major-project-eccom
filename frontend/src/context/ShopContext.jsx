@@ -57,7 +57,6 @@ const ShopContextProvider = (props) => {
     }
   };
 
-
   const getCartCount = () => {
     let totalCount = 0;
     for(const items in cartItems) {
@@ -121,8 +120,6 @@ const ShopContextProvider = (props) => {
       }
     }
   };
-  
-  
 
   const getCartAmount = () => {
     let totalAmount = 0;
@@ -251,7 +248,6 @@ const ShopContextProvider = (props) => {
     console.log("Wishlist count: ", count);
     return count
   };
-  
 
   useEffect(() => {
     getProductsData()

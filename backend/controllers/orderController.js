@@ -171,7 +171,6 @@ export const userOrders = async (req, res) => {
   try {
     
     const { userId } = req.body
-
     const orders = await OrderModel.find({ userId })
     res.json({success: true, orders})
 
