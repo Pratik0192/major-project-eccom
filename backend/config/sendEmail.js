@@ -1,27 +1,35 @@
-import { Resend } from "resend"
+import nodemailer from "nodemailer"
 import dotenv from 'dotenv'
 dotenv.config()
 
-if(!process.env.RESEND_API) {
-  console.log("Provide RESEND_API in side the .env file");
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+  console.log("Provide EMAIL_USER and EMAIL_PASS inside the .env file");
 }
 
-const resend = new Resend(process.env.RESEND_API);
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth:{
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+})
 
 const sendEmail = async({ sendTo, subject, html }) => {
   try {
-    const { data, error } = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+    const info = await transporter.sendMail({
+      from: process.env.EMAIL_USER,
       to: sendTo,
       subject: subject,
       html: html
-    });
+    })
 
-    if(error) {
-      return console.error({ error })
-    }
+    console.log("email sent", info.response);
 
-    return data
+    return info;
+    
   } catch (error) {
     console.log(error);
   }

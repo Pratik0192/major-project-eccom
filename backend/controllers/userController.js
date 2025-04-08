@@ -71,6 +71,10 @@ const registerUser = async(req, res) => {
       })
     })
 
+    if (!verifyEmail) {
+      return res.status(500).json({ success: false, message: "Failed to send verification email" });
+    }
+
     return res.json({ 
       message: "User Registration Successfull",
       error: false,
