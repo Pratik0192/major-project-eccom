@@ -62,7 +62,7 @@ const Products = () => {
                     {Array.from({ length: totalPages }, (_, index) => (
                       <button
                         key={index}
-                        className={`join-item btn bg-gray-300 text-black ${currentPage === index + 1 ? 'btn-active' : ''}`}
+                        className={`join-item btn bg-white text-black ${currentPage === index + 1 ? 'btn-active' : ''}`}
                         onClick={() => setCurrentPage(index + 1)}
                       >
                         {index + 1}

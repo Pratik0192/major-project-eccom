@@ -129,8 +129,7 @@ const Shipping = () => {
 
         <fieldset className="fieldset w-full bg-white text-black border border-base-300 p-4 rounded-box">
           <legend className="fieldset-legend text-lg font-semibold text-black">Personal Information</legend>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <label className="fieldset-label text-black">First Name</label>
+          <div className="flex justify-between gap-4">
             <input
               type="text"
               name="firstName"
@@ -138,9 +137,9 @@ const Shipping = () => {
               onChange={onChangeHandler}
               className="input w-full bg-gray-300"
               placeholder="First name"
+              required
             />
             
-            <label className="fieldset-label text-black">Last Name</label>
             <input
               type="text"
               name="lastName"
@@ -148,10 +147,10 @@ const Shipping = () => {
               onChange={onChangeHandler}
               className="input w-full bg-gray-300"
               placeholder="Last name"
+              required
             />
           </div>
 
-          <label className="fieldset-label text-black">Email</label>
           <input
             type="email"
             name="email"
@@ -159,24 +158,24 @@ const Shipping = () => {
             onChange={onChangeHandler}
             className="input w-full bg-gray-300"
             placeholder="example@example.com"
+            required
           />
         </fieldset>
 
         <fieldset className="fieldset w-full border bg-white border-base-300 p-4 rounded-box mt-4">
           <legend className="fieldset-legend text-lg font-semibold text-black">Address Details</legend>
-          <label className="fieldset-label text-black">Street Address</label>
           <input
             type="text"
             name="street"
             value={formData.street}
             onChange={onChangeHandler}
             className="input w-full bg-gray-300"
-            placeholder="123 Main St"
+            placeholder="Street"
+            required
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 bg-white gap-4">
             <div>
-              <label className="fieldset-label text-black">City</label>
               <input
                 type="text"
                 name="city"
@@ -184,53 +183,56 @@ const Shipping = () => {
                 onChange={onChangeHandler}
                 className="input w-full bg-gray-300"
                 placeholder="City"
+                required
               />
             </div>
 
             <div>
-              <label className="fieldset-label text-black">State</label>
               <input
                 type="text"
                 name="state"
                 value={formData.state}
                 onChange={onChangeHandler}
                 className="input w-full bg-gray-300"
-                placeholder="NY"
+                placeholder="state"
+                required
               />
             </div>
 
             <div>
-              <label className="fieldset-label text-black">Zipcode</label>
               <input
                 type="text"
                 name="zipcode"
                 value={formData.zipcode}
                 onChange={onChangeHandler}
                 className="input w-full bg-gray-300"
-                placeholder="10001"
+                placeholder="zipcode"
+                required
               />
             </div>
           </div>
 
-          <label className="fieldset-label text-black">Country</label>
-          <input
-            type="text"
-            name="country"
-            value={formData.country}
-            onChange={onChangeHandler}
-            className="input w-full bg-gray-300"
-            placeholder="INDIA"
-          />
+          <div className="flex justify-between gap-4" >
+            <input
+              type="text"
+              name="country"
+              value={formData.country}
+              onChange={onChangeHandler}
+              className="input w-full bg-gray-300"
+              placeholder="country"
+              required
+            />
 
-          <label className="fieldset-label text-black">Phone Number</label>
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={onChangeHandler}
-            className="input w-full bg-gray-300"
-            placeholder="+91 234 567 890"
-          />
+            <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={onChangeHandler}
+              className="input w-full bg-gray-300"
+              placeholder="phone"
+              required
+            />
+          </div>
         </fieldset>
       </div>
 

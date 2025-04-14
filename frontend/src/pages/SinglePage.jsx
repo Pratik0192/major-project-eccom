@@ -82,7 +82,7 @@ const SinglePage = () => {
                   <img 
                     src={img} 
                     alt={`${productData.name} view ${index + 1}`} 
-                    className="w-full max-h-[300px] sm:max-h-[400px] md:max-h-[500px] lg:max-h-[600px] object-contain" 
+                    className="w-full max-h-[300px] sm:max-h-[400px] md:max-h-[400px] lg:max-h-[450px] object-contain" 
                   />
                   {/* Navigation Buttons */}
                   <div className="hidden md:flex absolute top-1/2 transform -translate-y-1/2 w-full px-2 sm:px-4 justify-between">

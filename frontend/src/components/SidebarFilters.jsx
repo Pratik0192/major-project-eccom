@@ -66,9 +66,12 @@ const SidebarFilters = ({ setFilteredProducts }) => {
           </div>
         )}
       </div>
+
+      <hr className="border-gray-300 "  />
+
       
-      <div className="mb-4">
-        <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("brand")}>
+      <div className="mb-4 mt-4">
+        <div className="flex justify-between items-center text-gray-700 cursor-pointer" onClick={() => toggleSection("brand")}>
           <h3 className="font-semibold text-gray-700 text-lg">BRANDS</h3>
           {openSections.brand ? <FaChevronUp /> : <FaChevronDown />}
         </div>
@@ -83,9 +86,11 @@ const SidebarFilters = ({ setFilteredProducts }) => {
           </div>
         )}
       </div>
+
+      <hr className="border-gray-300 "  />
       
-      <div className="mb-4">
-        <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("frameColour")}>
+      <div className="mb-4 mt-4">
+        <div className="flex justify-between items-center text-gray-700 cursor-pointer" onClick={() => toggleSection("frameColour")}>
           <h3 className="font-semibold text-gray-700 text-lg">FRAME COLOURS</h3>
           {openSections.frameColour ? <FaChevronUp /> : <FaChevronDown />}
         </div>
@@ -100,9 +105,12 @@ const SidebarFilters = ({ setFilteredProducts }) => {
           </div>
         )}
       </div>
+
+      <hr className="border-gray-300 "  />
+
       
-      <div className="mb-4">
-        <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleSection("sizes")}>
+      <div className="mb-4 mt-4">
+        <div className="flex justify-between text-gray-700 items-center cursor-pointer" onClick={() => toggleSection("sizes")}>
           <h3 className="font-semibold text-lg">FRAME SIZES</h3>
           {openSections.sizes ? <FaChevronUp /> : <FaChevronDown />}
         </div>

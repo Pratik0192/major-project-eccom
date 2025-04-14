@@ -1,15 +1,32 @@
 import { Search, Star } from "lucide-react";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext";
 
 const ProductItem = ({ product }) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [currentImage, setCurrentImage] = useState(product.image[0]); // Default image
 
+  const { addToWishlist, removeWishlist, wishlistItems } = useContext(ShopContext)
+
   // Ensure product.colors is an array
   const productColors = Array.isArray(product.colors) ? product.colors : [];
+
+  useEffect(() => {
+    setIsWishlisted(wishlistItems.hasOwnProperty(product._id));
+  }, [wishlistItems, product._id]);
+
+  const toggleWishlist = async (e) => {
+    e.preventDefault(); // Prevent navigation
+    if (isWishlisted) {
+      await removeWishlist(product._id);
+    } else {
+      await addToWishlist(product._id);
+    }
+    setIsWishlisted(!isWishlisted);
+  };
 
   return (
     <Link to={`/product/${product._id}`}>
@@ -33,10 +50,7 @@ const ProductItem = ({ product }) => {
 
         {/* Wishlist Icon */}
         <button
-          onClick={(e) => {
-            e.preventDefault(); // Prevents Link navigation on button click
-            setIsWishlisted(!isWishlisted);
-          }}
+          onClick={toggleWishlist}
           className="absolute top-3 right-3 text-2xl transition-transform transform hover:scale-110 cursor-pointer"
         >
           {isWishlisted ? (
