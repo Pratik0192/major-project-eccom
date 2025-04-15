@@ -5,6 +5,8 @@ import ProductItem from "../components/ProductItem";
 import { BaggageClaim, Check, Heart, Truck } from "lucide-react";
 import tryon from '../assets/3d.jpg';
 import Loading from "../components/Loading";
+import Cartjson from '../assets/cartt.json';
+import Lottie from 'lottie-react'
 
 const SinglePage = () => {
   const { products, addToCart } = useContext(ShopContext);
@@ -113,7 +115,9 @@ const SinglePage = () => {
                   {Math.round(((productData.price - productData.discounted_price) / productData.price) * 100)}% OFF
                 </span>
                 <div className="ml-auto text-green flex items-center">
-                  <BaggageClaim className="w-5 md:w-7" />
+                  <span className="inline-block" >
+                    <Lottie animationData={Cartjson} className='w-[50px]'/>
+                  </span>
                   <p className="text-green-700 ml-2 text-sm md:text-lg">In Stock</p>
                 </div>
               </div>

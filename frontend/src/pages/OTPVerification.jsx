@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import lock from '../assets/Capture4.jpg'
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -55,10 +56,11 @@ const OTPVerification = () => {
   return (
     <section className="w-full container mx-auto px-2">
       <div className="bg-white my-4 w-full max-w-lg mx-auto rounded p-7">
-        <p className='font-semibold text-lg text-gray-900'>Enter Otp</p>
+        <p className='font-semibold text-center text-lg text-gray-900'>Enter Otp</p>
+        <div className='flex items-center justify-center' >   <img src={lock} alt="" />  </div>
         <form className='grid gap-4 py-4' onSubmit={handleSubmit} >
           <div className="grid gap-1">
-            <label className='text-gray-900' htmlFor="otp">Enter your OTP:</label>
+            <label className='text-gray-900' htmlFor="otp">Enter your 6-digit OTP:</label>
             <div className="flex items-center gap-2 justify-between mt-3">
               {
                 data.map((element, index) => {

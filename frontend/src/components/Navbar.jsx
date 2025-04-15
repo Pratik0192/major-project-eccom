@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from "react";
 import { motion } from "framer-motion";
 import logo from "../assets/lenskart-logo.png";
 import { Link } from "react-router-dom";
-import { CircleUser, Heart, Menu, Search, ShoppingBag } from "lucide-react";
+import { CircleUser, Heart, Layers, LogInIcon, LogOutIcon, Menu, Search, ShoppingBag, UserRound } from "lucide-react";
 import { ShopContext } from "../context/ShopContext";
 
 const Navbar = () => {
@@ -149,24 +149,33 @@ const Navbar = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2, ease: "easeInOut" }}
-                    className="absolute right-0 mt-2 w-40 bg-white shadow-lg border rounded-lg z-50"
-                  >
-                    <div className="px-4 py-2 font-bold text-2xl">Welcome</div>
+                    className="absolute right-0 mt-2 w-60 bg-white shadow-lg border rounded-lg z-50"
+                  > 
+                    {token ?
+                      (<div className="px-4 py-2 font-bold text-2xl">WELCOME!</div>
+                      ):(
+                        <div className="px-4 py-2 font-bold text-2xl" >LOGIN TO SHOP!</div>
+                      )
+                    } 
 
                     {token ? (
                       <li
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer transition duration-200"
+                        className="px-4 py-2 hover:bg-gray-100 flex gap-4 cursor-pointer transition duration-200"
                         onClick={handleLogout}
                       >
+                        <LogOutIcon />
                         Logout
                       </li>
                     ) : (
                       <li className="px-4 py-2 hover:bg-gray-100 transition duration-200">
-                        <Link to="/login">Log in/Sign up</Link>
+                        <Link to="/login" className="flex gap-4" ><LogInIcon /> Log in/Sign up</Link>
                       </li>
                     )}
                     <li className="px-4 py-2 hover:bg-gray-100 transition duration-200">
-                      <a href="/profile">Profile</a>
+                      <a href="/profile" className="flex gap-4" ><UserRound /> Profile</a>
+                    </li>
+                    <li className="px-4 py-2 hover:bg-gray-100 transition duration-200">
+                      <a href="/orders" className="flex gap-4" ><Layers /> Orders</a>
                     </li>
                   </motion.ul>
                 )}

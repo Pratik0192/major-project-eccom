@@ -201,21 +201,31 @@ const ShopContextProvider = (props) => {
       toast.error("please login to remove the items from wishlist");
       return;
     }
-
+  
     try {
+      // Optimistically update UI first
+      const updatedWishlist = {...wishlistItems};
+      delete updatedWishlist[itemId];
+      setWishlistItems(updatedWishlist);
+  
       const response = await axios.post(
         backendUrl + "/api/wishlist/remove",
         { itemId },
         { headers: {token} }
       );
-
+  
       if(response.data.success) {
         toast.success("Removed from wishlist");
-        getWishlistedItems(token)
+        // Refresh from server to ensure sync
+        await getWishlistedItems(token);
       } else {
-        toast.error(response.data.message)
+        // Revert if API fails
+        setWishlistItems(wishlistItems);
+        toast.error(response.data.message);
       }
     } catch (error) {
+      // Revert on error
+      setWishlistItems(wishlistItems);
       console.log(error);
       toast.error(error.response?.data?.message || "Something went wrong")
     }
@@ -232,7 +242,7 @@ const ShopContextProvider = (props) => {
       );
 
       if(response.data.success) {
-        setWishlistItems(response.data.wishlistData || []);
+        setWishlistItems(response.data.wishlistData || {});
       } else {
         toast.error(response.data.message);
       }

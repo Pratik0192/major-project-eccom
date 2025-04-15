@@ -20,7 +20,7 @@ import ResetPassword from './pages/ResetPassword'
 
 const App = () => {
   return (
-    <div>
+    <div className='bg-white' >
       <Toaster />
       <div className="sticky top-0 z-40 bg-white shadow-md">
         <Navbar />

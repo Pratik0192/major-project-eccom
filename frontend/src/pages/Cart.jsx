@@ -1,6 +1,9 @@
 import { Check, X, Minus, Plus, MessageCircleQuestion } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
+import Cartjson from '../assets/cartt.json';
+import Coupon from '../assets/coupon.json';
+import Lottie from 'lottie-react';
 
 const Cart = () => {
   const { products, cartItems, navigate, getCartAmount, updateQuantity ,removeFromCart } = useContext(ShopContext);
@@ -38,7 +41,13 @@ const Cart = () => {
         {/* Cart Items Section */}
         <div className="lg:w-2/3 bg-white shadow-md p-4 rounded-md">
           <h2 className="text-2xl md:text-3xl text-gray-900 font-bold text-center mb-7">
+            <span className="inline-block" >
+              <Lottie animationData={Cartjson} className='w-[50px]' />
+            </span>
             Shopping Cart ({cartData.length} items)
+            <span className="inline-block" >
+              <Lottie animationData={Cartjson} className='w-[50px]' />
+            </span>
           </h2>
           {cartData.map((item) => (
             <div key={item._id + item.size} className="flex gap-4 p-4 border-b border-t border-gray-200">
@@ -98,11 +107,12 @@ const Cart = () => {
 
           {/* Apply Coupon */}
           <button className="w-full border btn border-gray-300 p-2 rounded-md mt-4 text-gray-700" disabled>
-            Apply Coupon
+            <h1 className="ml-11" >Apply Coupon</h1>            
+            <Lottie animationData={Coupon} className='w-[40px]' />
           </button>
 
           {/* Apply Insurance */}
-          <button className="w-full border border-gray-300 p-2 rounded-md mt-2 text-gray-700" disabled>
+          <button className="w-full btn border border-gray-300 p-2 rounded-md mt-2 text-gray-700" disabled>
             Apply Insurance
           </button>
 

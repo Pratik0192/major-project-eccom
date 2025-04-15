@@ -1,5 +1,3 @@
-import Navbar from '../components/Navbar';
-import Footer from "../components/Footer";
 import pic from "../assets/login.png";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";

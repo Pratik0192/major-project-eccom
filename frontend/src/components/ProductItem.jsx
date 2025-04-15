@@ -5,18 +5,17 @@ import { Link } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 
 const ProductItem = ({ product }) => {
-  const [isWishlisted, setIsWishlisted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [currentImage, setCurrentImage] = useState(product.image[0]); // Default image
-
   const { addToWishlist, removeWishlist, wishlistItems } = useContext(ShopContext)
+
+  // Derive isWishlisted directly from context
+  const isWishlisted = wishlistItems[product._id];
+
+
 
   // Ensure product.colors is an array
   const productColors = Array.isArray(product.colors) ? product.colors : [];
-
-  useEffect(() => {
-    setIsWishlisted(wishlistItems.hasOwnProperty(product._id));
-  }, [wishlistItems, product._id]);
 
   const toggleWishlist = async (e) => {
     e.preventDefault(); // Prevent navigation
@@ -25,7 +24,6 @@ const ProductItem = ({ product }) => {
     } else {
       await addToWishlist(product._id);
     }
-    setIsWishlisted(!isWishlisted);
   };
 
   return (
@@ -51,7 +49,7 @@ const ProductItem = ({ product }) => {
         {/* Wishlist Icon */}
         <button
           onClick={toggleWishlist}
-          className="absolute top-3 right-3 text-2xl transition-transform transform hover:scale-110 cursor-pointer"
+          className="absolute top-5 right-3 text-2xl transition-transform transform hover:scale-110 cursor-pointer"
         >
           {isWishlisted ? (
             <FaHeart className="text-red-500"  />
