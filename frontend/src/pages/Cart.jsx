@@ -42,11 +42,11 @@ const Cart = () => {
         <div className="lg:w-2/3 bg-white shadow-md p-4 rounded-md">
           <h2 className="text-2xl md:text-3xl text-gray-900 font-bold text-center mb-7">
             <span className="inline-block" >
-              <Lottie animationData={Cartjson} className='w-[50px]' />
+              <Lottie animationData={Cartjson} className='w-[30px] md:w-[50px]' />
             </span>
             Shopping Cart ({cartData.length} items)
             <span className="inline-block" >
-              <Lottie animationData={Cartjson} className='w-[50px]' />
+              <Lottie animationData={Cartjson} className='w-[30px] md:w-[50px]' />
             </span>
           </h2>
           {cartData.map((item) => (

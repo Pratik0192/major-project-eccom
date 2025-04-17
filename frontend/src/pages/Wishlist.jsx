@@ -64,22 +64,23 @@ const Wishlist = () => {
   }
 
   return (
-    <div className="max-w-4xl bg-white mx-auto px-4 py-8 min-h-screen"> 
-      <h1 className="text-3xl gap-1 text-black font-bold mb-8 text-center">
+    <div className="max-w-6xl bg-white mx-auto px-4 py-8 min-h-screen"> 
+      <h1 className="text-md md:text-3xl gap-1 text-black font-bold mb-8 text-center">
         <span className='inline-block'>
-          <Lottie animationData={heart} className='w-[80px]' type='text' />
+          <Lottie animationData={heart} className='w-[50px] md:w-[80px]' type='text' />
         </span>
         Your Wishlist ({wishlistedProducts.length} {wishlistedProducts.length === 1 ? 'item' : 'items'} in wishlist)
         <span className='inline-block'>
-          <Lottie animationData={heart} className='w-[80px]' type='text' />
+          <Lottie animationData={heart} className='w-[50px] md:w-[80px]' type='text' />
         </span>
-      </h1>      
+      </h1>     
+      <hr className='text-gray-400'  /> 
       {token ? (
         <div>
           {wishlistedProducts.length > 0 ? (
             <div >
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-6">
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {wishlistedProducts.map(product => (
                   <div key={product._id} className="relative group">
                     <ProductItem product={product} />
