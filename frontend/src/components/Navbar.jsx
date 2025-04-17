@@ -8,7 +8,7 @@ import { ShopContext } from "../context/ShopContext";
 const Navbar = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const { token, setToken, getCartCount, wishlistItems } = useContext(ShopContext);
+  const { token, setToken, getCartCount, wishlistItems, navigate } = useContext(ShopContext);
   const [ wishlistCount, setWishlistCount ] = useState(0);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +34,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken(null);
+    navigate("/login")
   };
 
   return (
