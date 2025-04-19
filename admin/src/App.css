@@ -1,0 +1,13 @@
+  /* Globally hide scrollbar for all scrollable elements */
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none;
+}
+
+body,
+* {
+  /* IE & Edge */
+     /* Firefox */
+  margin: 0;
+  
+}
