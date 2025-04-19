@@ -3,9 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import ProductItem from "../components/ProductItem";
 import { BaggageClaim, Check, Heart, Truck } from "lucide-react";
+import stripe from '../assets/stripe_logo.png';
+import razorpay from '../assets/razorpay_logo.png'
 import tryon from '../assets/3d.jpg';
 import Loading from "../components/Loading";
 import Cartjson from '../assets/cartt.json';
+import wallet from '../assets/wallet.json';
 import Lottie from 'lottie-react'
 
 const SinglePage = () => {
@@ -154,6 +157,14 @@ const SinglePage = () => {
               {/* Countdown for Free Delivery */}
               <div className="mt-4 text-sm md:text-lg font-semibold text-gray-900 mb-2">
                 Free delivery if ordered within <span className="text-red-500">{minutes}m {seconds}s</span>
+              </div>
+
+              <div className="ml-auto text-black gap-2 flex items-center" >
+                <Lottie animationData={wallet}  className="w-[100px]" />
+                <p className="text-black ml-2 text-sm md:text-lg">Pay via</p>
+                <img src={stripe} alt="" />
+                |
+                <img src={razorpay} alt="" />
               </div>
 
                 {/* Product Details */}
